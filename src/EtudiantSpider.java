@@ -1,4 +1,5 @@
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.*;
@@ -6,11 +7,37 @@ import com.gargoylesoftware.htmlunit.html.*;
 
 public class EtudiantSpider extends Spider {
 
-	public EtudiantSpider(String url) throws Exception {
-		super(url);
+// http://jobs-stages.letudiant.fr/stages-etudiants/offres/libelle_libre-ios%20iphone/domaines-25_28/niveaux-2/page-1.html	
+	
+	@SuppressWarnings("serial")
+	static final private HashMap<String, String> fieldTable = new HashMap<String, String>(){{
+		put("Finance", "18");
+		put("Informatique", "25");
+		put("Technologies", "28");
+		put("Logistique", "31");
+	}};
+	
+	public EtudiantSpider() throws Exception {
+		super("http://jobs-stages.letudiant.fr/stages-etudiants");
 	}
 
 	public void crawlData(String[] fields, String duration, String keyword, int bac) throws Exception {
+		//make url
+		String newUrl = this.targetUrl.toString() + "/offres/";
+		if (keyword.length() > 0) newUrl += "libelle_libre-" + keyword + "/";
+		if (fields.length > 0) {
+			newUrl += "domaines-" + fieldTable.get(fields[0]);
+			if (fields.length > 1) {
+				for (int i = 1; i < fields.length; i ++) {
+					newUrl += "_" + fieldTable.get(fields[i]);
+				}
+			}
+			newUrl += "/";
+		}
+		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
+		else if (bac == 5) newUrl += "niveaux-1/";
+		URL url = new URL(newUrl + "page-1.html");
+		
 		// Ignore unnecessary warning
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
 		java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
@@ -24,40 +51,8 @@ public class EtudiantSpider extends Spider {
 		webClient.getOptions().setThrowExceptionOnScriptError(false);
 		
 		// get the page
-		URL url = this.targetUrl;
 		HtmlPage page = webClient.getPage(url);
-		
-		List<DomElement> fsList = page.getElementsByTagName("fieldset");
-		// first field set for keyword search
-		HtmlElement searchInput = (HtmlTextInput)fsList.get(0).getElementsByTagName("input").get(0);
-		searchInput.setTextContent(keyword);
-		
-		DomElement checkboxes = fsList.get(1);
-		List<HtmlElement> ulList = checkboxes.getElementsByTagName("ul");
-		// domaine
-		List<HtmlElement> itemList0 = ulList.get(0).getHtmlElementsByTagName("li");
-		List<HtmlElement> itemList1 = ulList.get(1).getHtmlElementsByTagName("li");
-		itemList0.addAll(itemList1);
-		for (String field : fields) {
-			for (HtmlElement item : itemList0) {
-				HtmlAnchor anchor = (HtmlAnchor)item.getHtmlElementsByTagName("label").get(0).getElementsByTagName("a").get(0);
-				String anchorTitle = anchor.getAttribute("title");
-				if (anchorTitle.indexOf(field) != -1) {
-					((HtmlCheckBoxInput)item.getHtmlElementsByTagName("input").get(0)).setChecked(true);
-				}
-			}
-		}
-		//bac could be 3, 4, 5 or nothing
-		List<HtmlElement> itemList11 = ulList.get(11).getHtmlElementsByTagName("li");
-		((HtmlCheckBoxInput)itemList11.get(0).getHtmlElementsByTagName("input").get(0)).setChecked(true);
-		((HtmlCheckBoxInput)itemList11.get(1).getHtmlElementsByTagName("input").get(0)).setChecked(true);
-		if (bac == 3 || bac == 4) {
-			((HtmlCheckBoxInput)itemList11.get(0).getHtmlElementsByTagName("input").get(0)).setChecked(false);
-		}
-		else if (bac == 5) ((HtmlCheckBoxInput)itemList11.get(1).getHtmlElementsByTagName("input").get(0)).setChecked(false);
-		//click search
-		page = ((HtmlElement)(page.getElementsByTagName("button").get(0))).click();
-		
+		// table of the posts
 		HtmlTable table = (HtmlTable)page.getElementsByTagName("table").get(0);
 		HtmlTableBody tableBody = table.getBodies().get(0);
 		for (HtmlTableRow row : tableBody.getRows()) {
@@ -71,9 +66,10 @@ public class EtudiantSpider extends Spider {
 			}
 		}
 		
-		
 		webClient.closeAllWindows();
-		
 	}
-
 }
+
+
+
+

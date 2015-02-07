@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <style>body{padding-left:30px;padding-right:30px;padding-top:20px;padding-bottom:40px;}</style>
+    <title>Spage</title>
+</head>
+<body>
+
+<center>
+    <div class="page-header">
+        <img class="img-rounded" src="img/Stage.png" width="400">
+    </div>
+
+    <form action="result" method="post">
+        <fieldset>
+            <div class="form-group">
+                <div class="input-group" style="width:580px">
+                    <input type="text" id="title" name="title" value="" class="form-control" placeholder="Mots-clés">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Rechercher</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="container">
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="duree" id="duree2" value="2m">
+                        < 2 mois
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" id="duree23" value="3m">
+                        2 - 3 mois
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" id="duree36" value="6m">
+                        3 - 6 mois
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" id="duree6" value="12m">
+                        > 6 mois
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="bac" id="bac3" value="bac3">
+                        bac+3
+                    </label>
+                    <label>
+                        <input type="radio" name="bac" id="bac4" value="bac4">
+                        bac+4
+                    </label>
+                    <label>
+                        <input type="radio" name="bac" id="bac5" value="bac5">
+                        bac+5
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="finance">Finance
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="informatique">Informatique
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="technologie">Technologie
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="logistique">Logistique
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </fieldset>
+    </form>
+</center>
+
+<footer>
+    <p>Copyright © 2015</p>
+    <p>CentraleSupélec Rennes</p>
+</footer>
+
+</body>
+</html>

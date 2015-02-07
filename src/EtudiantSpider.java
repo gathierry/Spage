@@ -37,6 +37,7 @@ public class EtudiantSpider extends Spider {
 		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
 		else if (bac == 5) newUrl += "niveaux-1/";
 		URL url = new URL(newUrl + "page-1.html");
+		//System.out.println(url);
 		
 		// Ignore unnecessary warning
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
@@ -52,24 +53,31 @@ public class EtudiantSpider extends Spider {
 		
 		// get the page
 		HtmlPage page = webClient.getPage(url);
-		// table of the posts
-		HtmlTable table = (HtmlTable)page.getElementsByTagName("table").get(0);
-		HtmlTableBody tableBody = table.getBodies().get(0);
-		for (HtmlTableRow row : tableBody.getRows()) {
-			for (HtmlTableCell cell : row.getCells()) {
-				List<HtmlElement> anchorList = cell.getHtmlElementsByTagName("a");
-				if (anchorList.size() > 0) {
-					Page cellPage = (Page)anchorList.get(0).click();
-					if (cellPage.isHtmlPage()) System.out.println(((HtmlPage)cellPage).asText());
-				}
-				
-			}
-		}
-		
+		//System.out.println(page.getUrl());
+
+		analyseTable(page);
+
 		webClient.closeAllWindows();
 	}
+
+    private static void analyseTable(HtmlPage page) throws Exception{
+        // table of the posts
+        HtmlTable table = (HtmlTable)page.getElementsByTagName("table").get(0);
+        HtmlTableBody tableBody = table.getBodies().get(0);
+        for (HtmlTableRow row : tableBody.getRows()) {
+            for (HtmlTableCell cell : row.getCells()) {
+                List<HtmlElement> anchorList = cell.getHtmlElementsByTagName("a");
+                if (anchorList.size() > 0) {
+                    Page cellPage = (Page)anchorList.get(0).click();
+                    if (cellPage.isHtmlPage()) {
+                        HtmlDivision div = (HtmlDivision)((HtmlPage) cellPage).getHtmlElementById("content-color");
+                        System.out.println("\n\n\n___________________________" + cellPage.getUrl() + "\n\n\n");
+                        System.out.println(div.asText());
+                    }
+
+                }
+
+            }
+        }
+    }
 }
-
-
-
-

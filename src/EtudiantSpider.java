@@ -11,40 +11,31 @@ public class EtudiantSpider extends Spider {
 	
 	@SuppressWarnings("serial")
 	static final private HashMap<String, String> fieldTable = new HashMap<String, String>(){{
-		put("Finance", "18");
-		put("Informatique", "25");
-		put("Technologies", "28");
-		put("Logistique", "31");
+		put("finance", "18");
+		put("informatique", "25");
+		put("technologies", "28");
+		put("logistique", "31");
 	}};
 	
 	public EtudiantSpider() throws Exception {
 		super("http://jobs-stages.letudiant.fr/stages-etudiants");
 	}
 
-	public void crawlData(String[] fields, String duration, String keyword, int bac) throws Exception {
+    public HtmlPage crawlData(WebClient webClient, String field, String duration, String keyword, int bac) throws Exception {
 		//make url
 		String newUrl = this.targetUrl.toString() + "/offres/";
 		if (keyword.length() > 0) newUrl += "libelle_libre-" + keyword + "/";
-		if (fields.length > 0) {
-			newUrl += "domaines-" + fieldTable.get(fields[0]);
-			if (fields.length > 1) {
-				for (int i = 1; i < fields.length; i ++) {
-					newUrl += "_" + fieldTable.get(fields[i]);
-				}
-			}
-			newUrl += "/";
-		}
+		if (field.length() > 0) newUrl += "domaines-" + fieldTable.get(field) + "/";
 		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
 		else if (bac == 5) newUrl += "niveaux-1/";
 		URL url = new URL(newUrl + "page-1.html");
-		//System.out.println(url);
+		System.out.println(url);
 		
 		// Ignore unnecessary warning
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
 		java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
 
-		// Initiate a webclient
-		final WebClient webClient = new WebClient(BrowserVersion.CHROME);
+		// set web client
 		webClient.getOptions().setJavaScriptEnabled(false);
 		webClient.getOptions().setCssEnabled(false);
 		// webClient.setAjaxController(new NicelyResynchronizingAjaxController());
@@ -58,6 +49,8 @@ public class EtudiantSpider extends Spider {
 		analyseTable(page);
 
 		webClient.closeAllWindows();
+
+        return page;
 	}
 
     private static void analyseTable(HtmlPage page) throws Exception{

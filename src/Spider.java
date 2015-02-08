@@ -1,3 +1,6 @@
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
 import java.net.URL;
 
 public abstract class Spider {
@@ -8,7 +11,7 @@ public abstract class Spider {
 		this.targetUrl = new URL(url);
 	}
 	
-	abstract public void crawlData(String[] fields, String duration, String keyword, int bac) throws Exception;
+	abstract public HtmlPage crawlData(WebClient webClient, String field, String duration, String keyword, int bac) throws Exception;
 	
 
 }

@@ -1,10 +1,14 @@
+import com.gargoylesoftware.htmlunit.*;
 
 public class Spage {
 	
 	public static void main(String[] args) throws Exception {
-		EtudiantSpider eSpider = new EtudiantSpider();
-		eSpider.crawlData(new String[] {"Informatique", "Technologies"}, "3", "ios android", 4);
+        final WebClient webClient = new WebClient(BrowserVersion.CHROME);
 
+//		EtudiantSpider eSpider = new EtudiantSpider();
+//		eSpider.crawlData("informatique", "3", "ios android", 4);
+        SchneiderSpider sSpider = new SchneiderSpider();
+        sSpider.crawlData(webClient, "", "", "", 0);
 	}
 
 }

@@ -22,21 +22,20 @@ public class Result extends HttpServlet {
         String title = parameters.get("title")[0];
         String durant = "";
         String bac = "";
+        String field = "";
         if (parameters.keySet().contains("duree")) {
             durant = parameters.get("duree")[0];
         }
         if (parameters.keySet().contains("bac")) {
             bac = parameters.get("bac")[0];
         }
-        String[] fields = parameters.get("field");
+        if (parameters.keySet().contains("field")) {
+            field = parameters.get("field")[0];
+        }
         res.getWriter().println(title);
         res.getWriter().println(durant);
         res.getWriter().println(bac);
-        for (String f : fields) {
-            res.getWriter().println(f);
-        }
-
-
+        res.getWriter().println(field);
     }
 
 }

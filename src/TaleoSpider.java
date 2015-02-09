@@ -7,15 +7,18 @@ import java.util.HashMap;
 /**
  * Created by Thierry on 2/9/15.
  */
-public class TaleoSpider extends Spider {
+public abstract class TaleoSpider extends Spider {
 
-    static final private HashMap<String, String> fieldTable = new HashMap<String, String>();
+    private HashMap<String, String> fieldTable;
 
-    public TaleoSpider (String url) throws Exception {
+    public TaleoSpider (String url, HashMap<String, String> map) throws Exception {
         super(url);
+        this.fieldTable = map;
     }
 
-    public HtmlPage crawlData(WebClient webClient, String field, String duration, String keyword, int bac) throws Exception {
+    abstract public void crawlData(String field, String duration, String keyword, int bac) throws Exception;
+
+    public HtmlPage taleoSearchPage(WebClient webClient, String field, String duration, String keyword, int bac) throws Exception {
         // Ignore unnecessary warning
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
         java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
@@ -37,6 +40,7 @@ public class TaleoSpider extends Spider {
         // select location
         HtmlSelect locSelect = page.getHtmlElementById("advancedSearchInterface.location1L1");
         HtmlOption locOp = locSelect.getOptionByText("France");
+        locSelect.setSelectedAttribute(locOp, true);
 
         //key word
         if (keyword.length() > 0) {
@@ -47,7 +51,7 @@ public class TaleoSpider extends Spider {
         //field
         if (field.length() > 0) {
             HtmlSelect fieldSelect = (HtmlSelect)page.getHtmlElementById("advancedSearchInterface.jobfield1L1");
-            HtmlOption op = fieldSelect.getOptionByValue(fieldTable.get(field));
+            HtmlOption op = fieldSelect.getOptionByValue(this.fieldTable.get(field));
             fieldSelect.setSelectedAttribute(op, true);
         }
 

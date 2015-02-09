@@ -21,7 +21,7 @@ public class EtudiantSpider extends Spider {
 		super("http://jobs-stages.letudiant.fr/stages-etudiants");
 	}
 
-    public HtmlPage crawlData(WebClient webClient, String field, String duration, String keyword, int bac) throws Exception {
+    public void crawlData(String field, String duration, String keyword, int bac) throws Exception {
 		//make url
 		String newUrl = this.targetUrl.toString() + "/offres/";
 		if (keyword.length() > 0) newUrl += "libelle_libre-" + keyword + "/";
@@ -36,6 +36,7 @@ public class EtudiantSpider extends Spider {
 		java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
 
 		// set web client
+        final WebClient webClient = new WebClient(BrowserVersion.CHROME);
 		webClient.getOptions().setJavaScriptEnabled(false);
 		webClient.getOptions().setCssEnabled(false);
 		// webClient.setAjaxController(new NicelyResynchronizingAjaxController());
@@ -49,8 +50,6 @@ public class EtudiantSpider extends Spider {
 		analyseTable(page);
 
 		webClient.closeAllWindows();
-
-        return page;
 	}
 
     private static void analyseTable(HtmlPage page) throws Exception{

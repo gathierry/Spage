@@ -68,20 +68,20 @@ public class EtudiantSpider extends Spider {
                         DomElement div1 = ((HtmlPage) cellPage).getElementsByTagName("h1").get(0);
                         System.out.println(div1.asText() );
                         div1 = ((HtmlPage) cellPage).getElementsByTagName("h2").get(0);
-                        String DivContent = div1.asText();
-                        String[] DivContentSplited = DivContent.split("\\|");
-                        for(int j = 0;j<DivContentSplited.length;j++)
+                        String divContent = div1.asText();
+                        String[] divContentSplited = divContent.split("\\|");
+                        for(int j = 0;j<divContentSplited.length;j++)
                         {
-                        	DivContentSplited[j].replace(" ","");
-                        	System.out.println(DivContentSplited[j]);
+                        	divContentSplited[j].replace(" ","");
+                        	System.out.println(divContentSplited[j]);
                         }
                         
                         DomElement div2 = ((HtmlPage) cellPage).getElementById("content-color");
-                        DivContent = div2.asText();
-                        int FirstIndex = DivContent.indexOf("P¨¦riode");
-                        int LastIndex = DivContent.indexOf("R¨¦mun¨¦ration");
+                        divContent = div2.asText();
+                        int FirstIndex = divContent.indexOf("P¨¦riode");
+                        int LastIndex = divContent.indexOf("R¨¦mun¨¦ration");
                         if(FirstIndex > 0 && LastIndex > 0 && LastIndex > FirstIndex)
-                            System.out.println(DivContent.substring(FirstIndex, LastIndex));
+                            System.out.println(divContent.substring(FirstIndex, LastIndex));
                         System.out.println("______" + cellPage.getUrl() + "\n\n\n");
 
                     }

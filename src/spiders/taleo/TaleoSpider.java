@@ -62,8 +62,6 @@ public abstract class TaleoSpider extends Spider {
             fieldSelect.setSelectedAttribute(op, true);
         }
 
-        page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
-
         return page;
     }
 

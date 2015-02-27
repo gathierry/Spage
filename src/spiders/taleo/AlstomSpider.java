@@ -25,13 +25,10 @@ public class AlstomSpider extends TaleoSpider {
 
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
         HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
-<<<<<<< HEAD:src/spiders/taleo/AlstomSpider.java
+        page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
         HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row2").click();
-=======
-        System.out.println("momiojoij");
-        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row1").click();
->>>>>>> FETCH_HEAD:src/AlstomSpider.java
+
 
         System.out.println(page.asText());
 

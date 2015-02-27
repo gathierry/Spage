@@ -80,8 +80,8 @@ public class EtudiantSpider extends Spider {
                         
                         DomElement div2 = ((HtmlPage) cellPage).getElementById("content-color");
                         divContent = div2.asText();
-                        int FirstIndex = divContent.indexOf("P¨¦riode");
-                        int LastIndex = divContent.indexOf("R¨¦mun¨¦ration");
+                        int FirstIndex = divContent.indexOf("PÃ©riode");
+                        int LastIndex = divContent.indexOf("RÃ©munÃ©ration");
                         if(FirstIndex > 0 && LastIndex > 0 && LastIndex > FirstIndex)
                             System.out.println(divContent.substring(FirstIndex, LastIndex));
                         System.out.println("______" + cellPage.getUrl() + "\n\n\n");

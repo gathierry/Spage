@@ -25,11 +25,12 @@ public class SchneiderSpider extends TaleoSpider {
 
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
         HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
+        page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
         HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row2").click();
         HtmlTableRow row =  detailPage.getHtmlElementById("requisitionDescriptionInterface.ID3143.row.row1");
 
-        System.out.println(row.asText());
+        System.out.println(page.asText());
 
         webClient.closeAllWindows();
     }

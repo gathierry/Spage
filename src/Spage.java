@@ -1,12 +1,14 @@
-import com.gargoylesoftware.htmlunit.*;
+import spiders.taleo.AlstomSpider;
+import spiders.taleo.SchneiderSpider;
 
 public class Spage {
 	
 	public static void main(String[] args) throws Exception {
-//		EtudiantSpider eSpider = new EtudiantSpider();
+//		spiders.EtudiantSpider eSpider = new spiders.EtudiantSpider();
 //		eSpider.crawlData("informatique", "3", "ios android", 4);
         AlstomSpider aSpider = new AlstomSpider();
-        aSpider.crawlData("informatique", "", "", 0);
+        SchneiderSpider sSpider = new SchneiderSpider();
+        sSpider.crawlData("", "", "", 0);
 	}
 
 }

@@ -1,7 +1,9 @@
+package spiders.taleo;
+
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
+import spiders.Spider;
 
-import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -32,6 +34,11 @@ public abstract class TaleoSpider extends Spider {
 
         // get the page
         HtmlPage page = webClient.getPage(this.targetUrl);
+
+        // result number per page (refresh page)
+        HtmlSelect numSelect = page.getHtmlElementById("requisitionListInterface.dropListSize");
+        HtmlOption numOp = numSelect.getOptionByText("100");
+        page = numSelect.setSelectedAttribute(numOp, true);
 
         // check intern
         HtmlCheckBoxInput internCheckBoxInput = (HtmlCheckBoxInput)page.getHtmlElementById("advancedSearchInterface.jobtype_1check");

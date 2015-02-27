@@ -1,3 +1,5 @@
+package spiders.taleo;
+
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -24,7 +26,7 @@ public class AlstomSpider extends TaleoSpider {
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
         HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
 
-        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row1").click();
+        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row2").click();
 
         System.out.println(page.asText());
 

@@ -1,11 +1,10 @@
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+package spiders;
 
 import java.net.URL;
 
 public abstract class Spider {
 	
-	URL targetUrl;
+	public URL targetUrl;
 	
 	public Spider (String url) throws Exception {
 		this.targetUrl = new URL(url);

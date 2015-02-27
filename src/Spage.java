@@ -1,6 +1,4 @@
-import spiders.taleo.AlstomSpider;
-import spiders.taleo.RenaultSpider;
-import spiders.taleo.SchneiderSpider;
+import db.DBConnection;
 
 public class Spage {
 	
@@ -9,10 +7,11 @@ public class Spage {
 //        eSpider.crawlData("informatique", "", "", 0);
 //        AlstomSpider aSpider = new AlstomSpider();
 //        aSpider.crawlData("", "", "", 4);
-        SchneiderSpider sSpider = new SchneiderSpider();
-        sSpider.crawlData("", "", "", 0);
+//        SchneiderSpider sSpider = new SchneiderSpider();
+//        sSpider.crawlData("", "", "", 0);
 //        RenaultSpider rSpider = new RenaultSpider();
 //        rSpider.crawlData("", "", "", 4);
+        DBConnection.startDb();
 
 	}
 

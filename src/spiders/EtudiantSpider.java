@@ -65,8 +65,27 @@ public class EtudiantSpider extends Spider {
                     Page cellPage = (Page)anchorList.get(0).click();
                     if (cellPage.isHtmlPage()) {
                         HtmlDivision div = (HtmlDivision)((HtmlPage) cellPage).getHtmlElementById("content-color");
-                        System.out.println("\n\n\n___________________________" + cellPage.getUrl() + "\n\n\n");
-                        System.out.println(div.asText());
+//                        System.out.println("\n\n\n___________________________" + cellPage.getUrl() + "\n\n\n");
+//                        System.out.println(div.asText());
+                        DomElement div1 = ((HtmlPage) cellPage).getElementsByTagName("h1").get(0);
+                        System.out.println(div1.asText() );
+                        div1 = ((HtmlPage) cellPage).getElementsByTagName("h2").get(0);
+                        String divContent = div1.asText();
+                        String[] divContentSplited = divContent.split("\\|");
+                        for(int j = 0;j<divContentSplited.length;j++)
+                        {
+                        	divContentSplited[j].replace(" ","");
+                        	System.out.println(divContentSplited[j]);
+                        }
+                        
+                        DomElement div2 = ((HtmlPage) cellPage).getElementById("content-color");
+                        divContent = div2.asText();
+                        int FirstIndex = divContent.indexOf("P¨¦riode");
+                        int LastIndex = divContent.indexOf("R¨¦mun¨¦ration");
+                        if(FirstIndex > 0 && LastIndex > 0 && LastIndex > FirstIndex)
+                            System.out.println(divContent.substring(FirstIndex, LastIndex));
+                        System.out.println("______" + cellPage.getUrl() + "\n\n\n");
+
                     }
 
                 }

@@ -10,12 +10,14 @@
 ```
 
 ### 数据结构
-- id (source+title initial)
+- id (source+reference)
 - source
 - title
 - enterprise
 - field
 - bac
 - duration
+  - 3
+  - 6
 - reference
 - postDate

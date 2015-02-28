@@ -56,8 +56,7 @@ public class EtudiantSpider extends Spider {
 		webClient.closeAllWindows();
 	}
 
-    private static ArrayList<Post> analyseTable(HtmlPage page) throws Exception{
-        ArrayList<Post> posts = new ArrayList<Post>();
+    private static void analyseTable(HtmlPage page) throws Exception{
         // table of the posts
         HtmlTable table = (HtmlTable)page.getElementsByTagName("table").get(0);
         HtmlTableBody tableBody = table.getBodies().get(0);
@@ -82,7 +81,7 @@ public class EtudiantSpider extends Spider {
                         {
                         	System.out.println(j + " - " + divContentSplited[j].replace(" ",""));
                         }
-                        
+
                         DomElement div2 = ((HtmlPage) cellPage).getElementById("content-color");
                         divContent = div2.asText();
                         System.out.println("---" + cutString(divContent, "Période", "Rémunération"));
@@ -97,7 +96,6 @@ public class EtudiantSpider extends Spider {
 
             }
         }
-        return posts;
     }
 
     static String cutString(String originString, String start, String end) {

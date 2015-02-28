@@ -27,10 +27,10 @@ public class AlstomSpider extends TaleoSpider {
         HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
-        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row2").click();
+        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row7").click();
+        HtmlElement content = detailPage.getHtmlElementById("requisitionDescriptionInterface.ID3020.row");
 
-
-        System.out.println(page.asText());
+        System.out.println(content.asText());
 
         webClient.closeAllWindows();
     }

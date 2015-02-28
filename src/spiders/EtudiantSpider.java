@@ -1,16 +1,17 @@
 package spiders;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
+import db.Post;
+
 public class EtudiantSpider extends Spider {
 
-// http://jobs-stages.letudiant.fr/stages-etudiants/offres/libelle_libre-ios%20iphone/domaines-25_28/niveaux-2/page-1.html	
-	
 	@SuppressWarnings("serial")
 	static final private HashMap<String, String> fieldTable = new HashMap<String, String>(){{
 		put("finance", "18");
@@ -30,6 +31,7 @@ public class EtudiantSpider extends Spider {
 		if (field.length() > 0) newUrl += "domaines-" + fieldTable.get(field) + "/";
 		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
 		else if (bac == 5) newUrl += "niveaux-1/";
+        newUrl += "regions-r3038033_r3037350_r3035876_r3034693_r3030967_r3030293_r3027939_r3027257_r3023519_r1000001_r3017372_r3013756_r3012874_r3007670_r2998268_r2997551_r2993955_r2990119_r2988289_r2987375_r2986492_r2985244_r2983751/";
 		URL url = new URL(newUrl + "page-1.html");
 		System.out.println(url);
 		
@@ -54,7 +56,8 @@ public class EtudiantSpider extends Spider {
 		webClient.closeAllWindows();
 	}
 
-    private static void analyseTable(HtmlPage page) throws Exception{
+    private static ArrayList<Post> analyseTable(HtmlPage page) throws Exception{
+        ArrayList<Post> posts = new ArrayList<Post>();
         // table of the posts
         HtmlTable table = (HtmlTable)page.getElementsByTagName("table").get(0);
         HtmlTableBody tableBody = table.getBodies().get(0);
@@ -64,33 +67,45 @@ public class EtudiantSpider extends Spider {
                 if (anchorList.size() > 0) {
                     Page cellPage = (Page)anchorList.get(0).click();
                     if (cellPage.isHtmlPage()) {
-                        HtmlDivision div = (HtmlDivision)((HtmlPage) cellPage).getHtmlElementById("content-color");
-//                        System.out.println("\n\n\n___________________________" + cellPage.getUrl() + "\n\n\n");
-//                        System.out.println(div.asText());
+                        // title
                         DomElement div1 = ((HtmlPage) cellPage).getElementsByTagName("h1").get(0);
-                        System.out.println(div1.asText() );
+                        String title = div1.asText();
+                        System.out.println(title + "\n");
+
                         div1 = ((HtmlPage) cellPage).getElementsByTagName("h2").get(0);
                         String divContent = div1.asText();
                         String[] divContentSplited = divContent.split("\\|");
-                        for(int j = 0;j<divContentSplited.length;j++)
+                        // employeur
+                        String enterprise = cutString(divContentSplited[0].replace(" ",""), "Employeur:", "(autresoffres");
+
+                        for(int j = 0;j < divContentSplited.length;j++)
                         {
-                        	divContentSplited[j].replace(" ","");
-                        	System.out.println(divContentSplited[j]);
+                        	System.out.println(j + " - " + divContentSplited[j].replace(" ",""));
                         }
                         
                         DomElement div2 = ((HtmlPage) cellPage).getElementById("content-color");
                         divContent = div2.asText();
-                        int FirstIndex = divContent.indexOf("Période");
-                        int LastIndex = divContent.indexOf("Rémunération");
-                        if(FirstIndex > 0 && LastIndex > 0 && LastIndex > FirstIndex)
-                            System.out.println(divContent.substring(FirstIndex, LastIndex));
+                        System.out.println("---" + cutString(divContent, "Période", "Rémunération"));
                         System.out.println("______" + cellPage.getUrl() + "\n\n\n");
 
+
+                        //Post post = new Post(...);
+                        //posts.add(post);
                     }
 
                 }
 
             }
         }
+        return posts;
+    }
+
+    static String cutString(String originString, String start, String end) {
+        int firstIndex = originString.indexOf(start) + start.length();
+        int lastIndex = originString.indexOf(end);
+        if(firstIndex > 0 && lastIndex > 0 && lastIndex > firstIndex){
+            return originString.substring(firstIndex, lastIndex);
+        }
+        return originString;
     }
 }

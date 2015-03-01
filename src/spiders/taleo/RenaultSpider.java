@@ -57,24 +57,23 @@ public class RenaultSpider extends TaleoSpider {
 //
 //        }
         HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row2").click();
-        String postDate = page.getHtmlElementById("requisitionListInterface.reqPostingDate.row2").asText();
+        Date postDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row2").asText());
         analyzePage(detailPage, postDate, bac);
 
         webClient.closeAllWindows();
     }
 
-    static void analyzePage(HtmlPage page, String postDate, int b) throws ParseException {
+    static void analyzePage(HtmlPage page, Date postDate, int bac) throws ParseException {
         String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
         String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
         String source = "RENAULT";
         String id = source + "-" + reference;
         String enterprise = "Renault";
         String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1678.row1").asText();
-        int bac = b;
         int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3119.row.row1").asText());
-        Date date = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH).parse(postDate);
 
-        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, date);
+
+        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
         System.out.print(post);
     }
 

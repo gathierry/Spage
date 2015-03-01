@@ -2,8 +2,14 @@ package spiders.taleo;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
+import db.Post;
+import spiders.Analyser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by Thierry on 2/27/15.
@@ -44,13 +50,32 @@ public class RenaultSpider extends TaleoSpider {
             bacCheckBoxInput.setChecked(true);
         }
 
+
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
-        //HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row1").click();
 
-
-        System.out.println(page.asText());
+//        for (int i = 1; ;i ++) {
+//
+//        }
+        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row2").click();
+        String postDate = page.getHtmlElementById("requisitionListInterface.reqPostingDate.row2").asText();
+        analyzePage(detailPage, postDate, bac);
 
         webClient.closeAllWindows();
+    }
+
+    static void analyzePage(HtmlPage page, String postDate, int b) throws ParseException {
+        String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
+        String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
+        String source = "RENAULT";
+        String id = source + "-" + reference;
+        String enterprise = "Renault";
+        String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1678.row1").asText();
+        int bac = b;
+        int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3119.row.row1").asText());
+        Date date = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH).parse(postDate);
+
+        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, date);
+        System.out.print(post);
     }
 
 }

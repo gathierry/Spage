@@ -51,15 +51,15 @@ public class Post {
     }
 
     public String toString() {
-        String str = "id" + this.id + "\n";
-        str += "source" + this.source + "\n";
-        str += "title" + this.title + "\n";
-        str += "enterprise" + this.enterprise + "\n";
-        str += "field" + this.field + "\n";
-        str += "bac" + this.bac + "\n";
-        str += "duration" + this.duration + "\n";
-        str += "reference" + this.reference + "\n";
-        str += "postDate" + this.postDate + "\n";
+        String str = "id : " + this.id + "\n";
+        str += "source : " + this.source + "\n";
+        str += "title : " + this.title + "\n";
+        str += "enterprise : " + this.enterprise + "\n";
+        str += "field : " + this.field + "\n";
+        str += "bac : " + this.bac + "\n";
+        str += "duration : " + this.duration + "\n";
+        str += "reference : " + this.reference + "\n";
+        str += "postDate : " + this.postDate + "\n";
         return str;
     }
 

@@ -3,6 +3,7 @@ import spiders.Analyser;
 import spiders.EtudiantSpider;
 import spiders.taleo.*;
 
+
 public class Spage {
 	
 	public static void main(String[] args) throws Exception {
@@ -12,11 +13,8 @@ public class Spage {
 //        aSpider.crawlData("", "", "", 4);
 //        SchneiderSpider sSpider = new SchneiderSpider();
 //        sSpider.crawlData("", "", "", 0);
-//        RenaultSpider rSpider = new RenaultSpider();
-//        rSpider.crawlData("", "", "", 4);
-
-        System.out.println(Analyser.getDuration());
-
+        RenaultSpider rSpider = new RenaultSpider();
+        rSpider.crawlData("", "", "", 4);
 	}
 
 }

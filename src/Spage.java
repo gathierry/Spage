@@ -15,7 +15,7 @@ public class Spage {
 //        RenaultSpider rSpider = new RenaultSpider();
 //        rSpider.crawlData("", "", "", 4);
 
-        System.out.println(Analyser.getDuration());
+
 
 	}
 

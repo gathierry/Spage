@@ -14,7 +14,7 @@ public class Post {
     private String enterprise;
     private String field;
     private int bac; //3, 4 or 5
-    private int duration; // 2, 3, 6
+    private int duration; // 3, 6
     private String reference;
     private Date postDate;
 

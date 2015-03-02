@@ -51,7 +51,6 @@ public class RenaultSpider extends TaleoSpider {
 //            bacCheckBoxInput.setChecked(true);
 //        }
 
-
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
         Date postDate = new Date();
@@ -83,8 +82,9 @@ public class RenaultSpider extends TaleoSpider {
         String id = source + "-" + reference;
         String enterprise = "Renault";
         String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1678.row1").asText();
-        int bac = 0;
-        int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3119.row.row1").asText());
+        String description = page.getHtmlElementById("requisitionDescriptionInterface.ID3119.row.row1").asText();
+        int duration = Analyser.getDuration(description);
+        String bac = Analyser.getBac(description);
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
         post.save();

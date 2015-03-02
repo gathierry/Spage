@@ -13,12 +13,12 @@ public class Post {
     private String title;
     private String enterprise;
     private String field;
-    private int bac; //3, 4 or 5
+    private String bac; //"345"
     private int duration; // 3, 6
     private String reference;
     private Date postDate;
 
-    public Post (String id, String source, String title, String enterprise, String field, int bac, int duration, String reference, Date postDate) {
+    public Post (String id, String source, String title, String enterprise, String field, String bac, int duration, String reference, Date postDate) {
         this.id = id;
         this.source = source;
         this.title = title;

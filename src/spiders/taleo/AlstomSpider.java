@@ -61,8 +61,9 @@ public class AlstomSpider extends TaleoSpider {
         String id = source + "-" + reference;
         String enterprise = "Alstom";
         String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1739.row1").asText();
-        int bac = 0;
-        int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText());
+        String description = page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText();
+        int duration = Analyser.getDuration(description);
+        String bac = Analyser.getBac(description);
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
         post.save();

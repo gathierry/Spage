@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ebffd7e-07e9-48e1-9e4f-45af5613e2f0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Spage.iml" afterPath="$PROJECT_DIR$/Spage.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Spage.iws" />
@@ -41,8 +41,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6" vertical-offset="0" max-vertical-offset="105">
-              <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+            <state vertical-scroll-proportion="-13.92" vertical-offset="387" max-vertical-offset="825">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,7 +51,7 @@
       <file leaf-file-name="Spage.iml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Spage.iml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.736973" vertical-offset="2715" max-vertical-offset="3885">
+            <state vertical-scroll-proportion="-3.8759305" vertical-offset="1562" max-vertical-offset="3885">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -139,8 +139,8 @@
         <option value="$PROJECT_DIR$/src/Spage.java" />
         <option value="$PROJECT_DIR$/src/db/Post.java" />
         <option value="$PROJECT_DIR$/src/spiders/taleo/AlstomSpider.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Spage.iml" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -937,15 +937,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6" vertical-offset="0" max-vertical-offset="105">
-          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+        <state vertical-scroll-proportion="-13.92" vertical-offset="387" max-vertical-offset="825">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Spage.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.736973" vertical-offset="2715" max-vertical-offset="3885">
+        <state vertical-scroll-proportion="-3.8759305" vertical-offset="1562" max-vertical-offset="3885">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>

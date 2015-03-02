@@ -32,7 +32,8 @@ public class Post {
 
     public void save() throws Exception{
         MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
-        DB stagedb = mongoClient.getDB("stageDB");
+        //DB stagedb = mongoClient.getDB("stageDB");
+        DB stagedb = mongoClient.getDB("stageTestDB");
         DBCollection postsCollection = stagedb.getCollection("posts");
 
         BasicDBObject postDBObject = new BasicDBObject("id", this.id)
@@ -44,22 +45,24 @@ public class Post {
                 .append("duration", this.duration)
                 .append("reference", this.reference)
                 .append("postDate", this.postDate);
-        postsCollection.insert(postDBObject);
 
+        if(postsCollection.findOne(new BasicDBObject("id", this.id)) == null) {
+            postsCollection.insert(postDBObject);
+        }
 
         mongoClient.close();
     }
 
     public String toString() {
-        String str = "id" + this.id + "\n";
-        str += "source" + this.source + "\n";
-        str += "title" + this.title + "\n";
-        str += "enterprise" + this.enterprise + "\n";
-        str += "field" + this.field + "\n";
-        str += "bac" + this.bac + "\n";
-        str += "duration" + this.duration + "\n";
-        str += "reference" + this.reference + "\n";
-        str += "postDate" + this.postDate + "\n";
+        String str = "id : " + this.id + "\n";
+        str += "source : " + this.source + "\n";
+        str += "title : " + this.title + "\n";
+        str += "enterprise : " + this.enterprise + "\n";
+        str += "field : " + this.field + "\n";
+        str += "bac : " + this.bac + "\n";
+        str += "duration : " + this.duration + "\n";
+        str += "reference : " + this.reference + "\n";
+        str += "postDate : " + this.postDate + "\n";
         return str;
     }
 

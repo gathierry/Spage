@@ -1,9 +1,14 @@
 package spiders.taleo;
 
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
+import org.joda.time.*;
 
-import java.util.*;
+import db.Post;
+import spiders.Analyser;
 
 /**
  * Created by Thierry on 2/9/15.
@@ -27,11 +32,39 @@ public class AlstomSpider extends TaleoSpider {
         HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
-        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row7").click();
-        HtmlElement content = detailPage.getHtmlElementById("requisitionDescriptionInterface.ID3020.row");
-
-        System.out.println(content.asText());
+        Date postDate = new Date();
+        int days = 0;
+        ArrayList<Date> postDates = new ArrayList<Date>();
+        for (int i = 1; ; i ++){
+            postDate = new SimpleDateFormat("MMM dd, yyyy").parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
+            days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
+            if (days < 3) postDates.add(postDate);
+            else break;
+        }
+        // have to update pages by clicking next
+        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row1").click();
+        analyzePage(detailPage, postDates.get(0));
+        for (int i = 1; i < postDates.size(); i ++) {
+            detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID868.Next").click();
+            analyzePage(detailPage, postDates.get(i));
+        }
 
         webClient.closeAllWindows();
+    }
+
+    static void analyzePage(HtmlPage page, Date postDate) throws Exception {
+        String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
+        String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
+        String source = "ALSTOM";
+        String id = source + "-" + reference;
+        String enterprise = "Alstom";
+        String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1739.row1").asText();
+        int bac = 0;
+        int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText());
+
+        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
+        post.save();
+
+        System.out.print(post + "\n");
     }
 }

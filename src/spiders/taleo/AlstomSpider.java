@@ -38,7 +38,7 @@ public class AlstomSpider extends TaleoSpider {
         for (int i = 1; ; i ++){
             postDate = new SimpleDateFormat("MMM dd, yyyy",Locale.ENGLISH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
             days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
-            if (days < 10) postDates.add(postDate);
+            if (days < 5) postDates.add(postDate);
             else break;
         }
         // have to update pages by clicking next
@@ -65,7 +65,7 @@ public class AlstomSpider extends TaleoSpider {
         int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText());
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
-       // post.save();
+        post.save();
 
         System.out.print(post + "\n");
     }

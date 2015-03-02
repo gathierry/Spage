@@ -85,7 +85,7 @@ public class RenaultSpider extends TaleoSpider {
         String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1678.row1").asText();
         int bac = 0;
         int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3119.row.row1").asText());
-        
+
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
         post.save();
 

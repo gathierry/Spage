@@ -1,6 +1,6 @@
 package spiders.taleo;
 
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 
 import com.gargoylesoftware.htmlunit.*;
@@ -36,17 +36,19 @@ public class AlstomSpider extends TaleoSpider {
         int days = 0;
         ArrayList<Date> postDates = new ArrayList<Date>();
         for (int i = 1; ; i ++){
-            postDate = new SimpleDateFormat("MMM dd, yyyy").parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
+            postDate = new SimpleDateFormat("MMM dd, yyyy",Locale.ENGLISH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
             days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
-            if (days < 3) postDates.add(postDate);
+            if (days < 10) postDates.add(postDate);
             else break;
         }
         // have to update pages by clicking next
-        HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row1").click();
-        analyzePage(detailPage, postDates.get(0));
-        for (int i = 1; i < postDates.size(); i ++) {
-            detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID868.Next").click();
-            analyzePage(detailPage, postDates.get(i));
+        if (postDates.size() > 0) {
+            HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row1").click();
+            analyzePage(detailPage, postDates.get(0));
+            for (int i = 1; i < postDates.size(); i ++) {
+                detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID868.Next").click();
+                analyzePage(detailPage, postDates.get(i));
+            }
         }
 
         webClient.closeAllWindows();
@@ -63,7 +65,7 @@ public class AlstomSpider extends TaleoSpider {
         int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText());
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
-        post.save();
+       // post.save();
 
         System.out.print(post + "\n");
     }

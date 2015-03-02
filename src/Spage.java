@@ -3,6 +3,9 @@ import spiders.Analyser;
 import spiders.EtudiantSpider;
 import spiders.taleo.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 public class Spage {
 	
@@ -13,6 +16,8 @@ public class Spage {
         aSpider.crawlData("", "", "", 4);
 //        RenaultSpider rSpider = new RenaultSpider();
 //        rSpider.crawlData("", "", "", 4);
+
+        System.out.print(new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH).parse("Feb 07, 2013"));
 
 	}
 

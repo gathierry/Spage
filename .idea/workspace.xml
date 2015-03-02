@@ -2,35 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ebffd7e-07e9-48e1-9e4f-45af5613e2f0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/Spage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/db/Post.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/Analyser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/EtudiantSpider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/EtudiantSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/Spider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/taleo/AlstomSpider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/taleo/AlstomSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/taleo/RenaultSpider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/taleo/RenaultSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/taleo/SchneiderSpider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/taleo/SchneiderSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/spiders/taleo/TaleoSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Spage/web/Result.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/Spage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/db/Post.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/Analyser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/EtudiantSpider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/EtudiantSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/Spider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/taleo/AlstomSpider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/taleo/AlstomSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/taleo/RenaultSpider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/taleo/RenaultSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/spiders/taleo/TaleoSpider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webRoot/WEB-INF/classes/web/Result.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Spage.iml" afterPath="$PROJECT_DIR$/Spage.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Spage.iws" />
@@ -69,8 +41,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.03968254" vertical-offset="0" max-vertical-offset="378">
+              <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -947,8 +919,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.03968254" vertical-offset="0" max-vertical-offset="378">
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
           <folding />
         </state>
       </provider>

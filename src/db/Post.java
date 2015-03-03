@@ -49,6 +49,42 @@ public class Post {
         this.postDate = postDate;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
+    public String getSource() {
+        return this.source;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getEnterprise() {
+        return this.enterprise;
+    }
+
+    public String getField() {
+        return this.field;
+    }
+
+    public String getBac() {
+        return this.bac;
+    }
+
+    public String getDuration() {
+        return this.duration;
+    }
+
+    public String getReference() {
+        return this.reference;
+    }
+
+    public Date getPostDate() {
+        return this.postDate;
+    }
+
     private static MongoClient getMongoClient() throws UnknownHostException {
         return new MongoClient( "localhost" , PORT);
     }

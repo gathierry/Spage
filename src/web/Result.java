@@ -13,8 +13,9 @@ import java.util.Map;
 public class Result extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        System.out.println("result");
+
         res.getWriter().println("result");
+
     }
 
     protected  void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

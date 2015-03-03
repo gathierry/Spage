@@ -18,9 +18,9 @@ public abstract class TaleoSpider extends Spider {
         this.fieldTable = map;
     }
 
-    abstract public void crawlData(String field, String duration, String keyword, int bac) throws Exception;
+    abstract public void crawlData() throws Exception;
 
-    public HtmlPage taleoSearchPage(WebClient webClient, String field, String duration, String keyword, int bac) throws Exception {
+    public HtmlPage taleoSearchPage(WebClient webClient) throws Exception {
         // Ignore unnecessary warning
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
         java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
@@ -48,19 +48,6 @@ public abstract class TaleoSpider extends Spider {
         HtmlSelect locSelect = page.getHtmlElementById("advancedSearchInterface.location1L1");
         HtmlOption locOp = locSelect.getOptionByText("France");
         locSelect.setSelectedAttribute(locOp, true);
-
-        //key word
-        if (keyword.length() > 0) {
-            HtmlTextInput keywordInput = (HtmlTextInput)page.getHtmlElementById("advancedSearchInterface.keywordInput");
-            keywordInput.setText(keyword);
-        }
-
-        //field
-        if (field.length() > 0) {
-            HtmlSelect fieldSelect = (HtmlSelect)page.getHtmlElementById("advancedSearchInterface.jobfield1L1");
-            HtmlOption op = fieldSelect.getOptionByValue(this.fieldTable.get(field));
-            fieldSelect.setSelectedAttribute(op, true);
-        }
 
         return page;
     }

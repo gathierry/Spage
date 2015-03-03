@@ -2,6 +2,9 @@ package spiders;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.io.File;
+import java.io.FileWriter;
+
 /**
  * Created by Thierry on 2/28/15.
  */
@@ -60,6 +63,19 @@ public class Analyser {
             }
         }
         return bac;
+    }
+
+    public static void test(String fileName, String fileString) throws Exception{
+
+        String writerContent = fileString;// 要写入的文本
+        File file = new File(fileName);// 要写入的文本文件
+        if (!file.exists()) {// 如果文件不存在，则创建该文件
+            file.createNewFile();
+        }
+        FileWriter writer = new FileWriter(file);// 获取该文件的输出流
+        writer.write(writerContent);// 写内容
+        writer.flush();// 清空缓冲区，立即将输出流里的内容写到文件里
+        writer.close();// 关闭输出流，施放资源
     }
 
 }

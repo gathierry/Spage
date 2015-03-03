@@ -26,10 +26,10 @@ public class RenaultSpider extends TaleoSpider {
         }});
     }
 
-    public void crawlData(String field, String duration, String keyword, int bac) throws Exception {
+    public void crawlData() throws Exception {
 
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
-        HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
+        HtmlPage page = this.taleoSearchPage(webClient);
 
         // check intern
         HtmlCheckBoxInput internCheckBoxInput = (HtmlCheckBoxInput)page.getHtmlElementById("advancedSearchInterface.jobtype_1check");
@@ -59,7 +59,7 @@ public class RenaultSpider extends TaleoSpider {
         for (int i = 1; ; i ++){
             postDate = new SimpleDateFormat("dd MMMM yyyy",Locale.FRENCH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
             days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
-            if (days < 2) postDates.add(postDate);
+            if (days < 5) postDates.add(postDate);
             else break;
         }
         // have to update pages by clicking next

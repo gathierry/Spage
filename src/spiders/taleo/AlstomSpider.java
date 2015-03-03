@@ -1,14 +1,19 @@
 package spiders.taleo;
 
-import java.text.*;
-import java.util.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
-import org.joda.time.*;
-
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import db.Post;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import spiders.Analyser;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by Thierry on 2/9/15.
@@ -26,10 +31,13 @@ public class AlstomSpider extends TaleoSpider {
         }});
     }
 
-    public void crawlData(String field, String duration, String keyword, int bac) throws Exception {
+    public void crawlData() throws Exception {
+
+        Analyser.test("searchStart.txt", "begin");
 
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
-        HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
+        HtmlPage page = this.taleoSearchPage(webClient);
+
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
         Date postDate = new Date();

@@ -24,13 +24,12 @@ public class EtudiantSpider extends Spider {
 		super("http://jobs-stages.letudiant.fr/stages-etudiants");
 	}
 
-    public void crawlData(String field, String duration, String keyword, int bac) throws Exception {
+    public void crawlData() throws Exception {
 		//make url
 		String newUrl = this.targetUrl.toString() + "/offres/";
-		if (keyword.length() > 0) newUrl += "libelle_libre-" + keyword + "/";
-		if (field.length() > 0) newUrl += "domaines-" + fieldTable.get(field) + "/";
-		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
-		else if (bac == 5) newUrl += "niveaux-1/";
+//		if (field.length() > 0) newUrl += "domaines-" + fieldTable.get(field) + "/";
+//		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
+//		else if (bac == 5) newUrl += "niveaux-1/";
         newUrl += "regions-r3038033_r3037350_r3035876_r3034693_r3030967_r3030293_r3027939_r3027257_r3023519_r1000001_r3017372_r3013756_r3012874_r3007670_r2998268_r2997551_r2993955_r2990119_r2988289_r2987375_r2986492_r2985244_r2983751/";
 		URL url = new URL(newUrl + "page-1.html");
 		System.out.println(url);

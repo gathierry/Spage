@@ -10,7 +10,6 @@ public abstract class Spider {
 		this.targetUrl = new URL(url);
 	}
 	
-	abstract public void crawlData(String field, String duration, String keyword, int bac) throws Exception;
-	
+	abstract public void crawlData() throws Exception;
 
 }

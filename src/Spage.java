@@ -1,15 +1,17 @@
-import spiders.taleo.AlstomSpider;
+import db.Post;
 
 public class Spage {
 
 	public static void main(String[] args) throws Exception {
 //        EtudiantSpider eSpider = new EtudiantSpider();
 //        eSpider.crawlData();
-        AlstomSpider aSpider = new AlstomSpider();
-        aSpider.crawlData();
+//        AlstomSpider aSpider = new AlstomSpider();
+//        aSpider.crawlData();
 //        RenaultSpider rSpider = new RenaultSpider();
 //        rSpider.crawlData();
-	}
+
+        System.out.println(Post.getList("", "3", "", ""));
+    }
 
 
 

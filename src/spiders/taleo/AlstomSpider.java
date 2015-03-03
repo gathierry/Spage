@@ -32,9 +32,6 @@ public class AlstomSpider extends TaleoSpider {
     }
 
     public void crawlData() throws Exception {
-
-        Analyser.test("searchStart.txt", "begin");
-
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
         HtmlPage page = this.taleoSearchPage(webClient);
 
@@ -70,7 +67,7 @@ public class AlstomSpider extends TaleoSpider {
         String enterprise = "Alstom";
         String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1739.row1").asText();
         String description = page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText();
-        int duration = Analyser.getDuration(description);
+        String duration = Analyser.getDuration(description);
         String bac = Analyser.getBac(description);
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);

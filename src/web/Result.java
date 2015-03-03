@@ -14,7 +14,7 @@ public class Result extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        res.getWriter().println("result");
+        res.getWriter().println("no result");
 
     }
 
@@ -33,10 +33,10 @@ public class Result extends HttpServlet {
         if (parameters.keySet().contains("field")) {
             field = parameters.get("field")[0];
         }
-        res.getWriter().println(title);
-        res.getWriter().println(durant);
-        res.getWriter().println(bac);
-        res.getWriter().println(field);
+        res.getWriter().println("title : " + title);
+        res.getWriter().println("duration : " + durant);
+        res.getWriter().println("bac : " + bac);
+        res.getWriter().println("field : " + field);
     }
 
 }

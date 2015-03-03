@@ -1,7 +1,11 @@
 package db;
 
-import java.util.Date;
 import com.mongodb.*;
+
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * Created by Thierry on 2/28/15.
@@ -14,11 +18,26 @@ public class Post {
     private String enterprise;
     private String field;
     private String bac; //"345"
-    private int duration; // 3, 6
+    private String duration; // 3, 6
     private String reference;
     private Date postDate;
 
-    public Post (String id, String source, String title, String enterprise, String field, String bac, int duration, String reference, Date postDate) {
+
+    static final int PORT = 27017;
+    static final String DB_NAME = "stageTestDB";
+    static final String COLLECTION_NAME = "posts";
+    static final String ID = "id";
+    static final String SOURCE = "source";
+    static final String TITLE = "title";
+    static final String ENTERPRISE = "enterprise";
+    static final String FIELD = "field";
+    static final String BAC = "bac";
+    static final String DURATION = "duration";
+    static final String REFERENCE = "reference";
+    static final String POST_DATE = "postDate";
+
+
+    public Post (String id, String source, String title, String enterprise, String field, String bac, String duration, String reference, Date postDate) {
         this.id = id;
         this.source = source;
         this.title = title;
@@ -30,39 +49,76 @@ public class Post {
         this.postDate = postDate;
     }
 
+    private static MongoClient getMongoClient() throws UnknownHostException {
+        return new MongoClient( "localhost" , PORT);
+    }
+
     public void save() throws Exception{
-        MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
-        //DB stagedb = mongoClient.getDB("stageDB");
-        DB stagedb = mongoClient.getDB("stageTestDB");
-        DBCollection postsCollection = stagedb.getCollection("posts");
+        MongoClient mongoClient = Post.getMongoClient();
+        DB stagedb = mongoClient.getDB(DB_NAME);
+        DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
+        BasicDBObject postDBObject = new BasicDBObject(ID, this.id)
+                .append(SOURCE, this.source)
+                .append(TITLE, this.title)
+                .append(ENTERPRISE, this.enterprise)
+                .append(FIELD, this.field)
+                .append(BAC, this.bac)
+                .append(DURATION, this.duration)
+                .append(REFERENCE, this.reference)
+                .append(POST_DATE, this.postDate);
 
-        BasicDBObject postDBObject = new BasicDBObject("id", this.id)
-                .append("source", this.source)
-                .append("title", this.title)
-                .append("enterprise", this.enterprise)
-                .append("field", this.field)
-                .append("bac", this.bac)
-                .append("duration", this.duration)
-                .append("reference", this.reference)
-                .append("postDate", this.postDate);
-
-        if(postsCollection.findOne(new BasicDBObject("id", this.id)) == null) {
+        if(postsCollection.findOne(new BasicDBObject(ID, this.id)) == null) {
             postsCollection.insert(postDBObject);
         }
 
         mongoClient.close();
     }
 
+    static public ArrayList<Post> getList(String keywords, String bac, String duration, String field) throws UnknownHostException {
+        ArrayList<Post> list = new ArrayList<Post>();
+
+        MongoClient mongoClient = Post.getMongoClient();
+        DB stagedb = mongoClient.getDB(DB_NAME);
+        DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
+
+        Pattern patternKeywords = Pattern.compile("(.*)" + keywords +"(.*)", Pattern.CASE_INSENSITIVE);
+        Pattern patternBac = Pattern.compile("(.*)" + bac +"(.*)", Pattern.CASE_INSENSITIVE);
+        Pattern patternDuration = Pattern.compile("(.*)" + duration +"(.*)", Pattern.CASE_INSENSITIVE);
+        Pattern patternField = Pattern.compile("(.*)" + field +"(.*)", Pattern.CASE_INSENSITIVE);
+
+        BasicDBObject query = new BasicDBObject(TITLE, patternKeywords)
+                .append(BAC, patternBac)
+                .append(DURATION, patternDuration)
+                .append(FIELD, patternField);
+
+        DBCursor cursor = postsCollection.find(query);
+        while (cursor.hasNext()) {
+            BasicDBObject dbObject = (BasicDBObject) cursor.next();
+            Post post = new Post(dbObject.getString(ID),
+                    dbObject.getString(SOURCE),
+                    dbObject.getString(TITLE),
+                    dbObject.getString(ENTERPRISE),
+                    dbObject.getString(FIELD),
+                    dbObject.getString(BAC),
+                    dbObject.getString(DURATION),
+                    dbObject.getString(REFERENCE),
+                    dbObject.getDate(POST_DATE));
+            list.add(post);
+        }
+        mongoClient.close();
+        return list;
+    }
+
     public String toString() {
-        String str = "id : " + this.id + "\n";
-        str += "source : " + this.source + "\n";
-        str += "title : " + this.title + "\n";
-        str += "enterprise : " + this.enterprise + "\n";
-        str += "field : " + this.field + "\n";
-        str += "bac : " + this.bac + "\n";
-        str += "duration : " + this.duration + "\n";
-        str += "reference : " + this.reference + "\n";
-        str += "postDate : " + this.postDate + "\n";
+        String str = ID +  " : " + this.id + "\n";
+        str += SOURCE + " : " + this.source + "\n";
+        str += TITLE + " : " + this.title + "\n";
+        str += ENTERPRISE + " : " + this.enterprise + "\n";
+        str += FIELD + " : " + this.field + "\n";
+        str += BAC + " : " + this.bac + "\n";
+        str += DURATION + " : " + this.duration + "\n";
+        str += REFERENCE + " : " + this.reference + "\n";
+        str += POST_DATE + " : " + this.postDate + "\n";
         return str;
     }
 

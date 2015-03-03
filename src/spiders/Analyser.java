@@ -2,15 +2,12 @@ package spiders;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-
 /**
  * Created by Thierry on 2/28/15.
  */
 public class Analyser {
 
-    static public int getDuration(String description) {
+    static public String getDuration(String description) {
 
         int mIndex = description.lastIndexOf("mois");
         int mIndex2 = mIndex + "mois".length();
@@ -18,7 +15,7 @@ public class Analyser {
             mIndex = description.lastIndexOf("months");
             mIndex2 = mIndex + "months".length();
         }
-        if (mIndex < 0) return 0;
+        if (mIndex < 0) return "36";
 
         String neighbor = description.substring(mIndex - 2, mIndex - 1);
         if (NumberUtils.isNumber(neighbor)) {
@@ -26,15 +23,15 @@ public class Analyser {
                 String min1 = description.substring(mIndex2 + 1, mIndex2 + 2 + "minimum".length());
                 String min2 = description.substring(mIndex - "minimum".length() - 3, mIndex - 3);
                 if (min1.startsWith("min") || min2.startsWith("min")) {
-                    return 6;
+                    return "6";
                 }
-                else return 3;
+                else return "3";
             }
             else {
-                return 6;
+                return "6";
             }
         };
-        return 0;
+        return "36";
     }
 
     static public String getBac(String description) {
@@ -51,6 +48,7 @@ public class Analyser {
             }
             else break;
         }
+        if (result.equals("0")) result = "12345";
         return result;
     }
 
@@ -63,19 +61,6 @@ public class Analyser {
             }
         }
         return bac;
-    }
-
-    public static void test(String fileName, String fileString) throws Exception{
-
-        String writerContent = fileString;// 要写入的文本
-        File file = new File(fileName);// 要写入的文本文件
-        if (!file.exists()) {// 如果文件不存在，则创建该文件
-            file.createNewFile();
-        }
-        FileWriter writer = new FileWriter(file);// 获取该文件的输出流
-        writer.write(writerContent);// 写内容
-        writer.flush();// 清空缓冲区，立即将输出流里的内容写到文件里
-        writer.close();// 关闭输出流，施放资源
     }
 
 }

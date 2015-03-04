@@ -3,8 +3,7 @@ package db;
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -86,7 +85,19 @@ public class Post {
     }
 
     private static MongoClient getMongoClient() throws UnknownHostException {
-        return new MongoClient( "localhost" , PORT);
+//        String host = System.getenv("OPENSHIFT_MONGODB_DB_HOST");
+//        String sport = System.getenv("OPENSHIFT_MONGODB_DB_PORT");
+//        String db = System.getenv("OPENSHIFT_APP_NAME");
+//        if(db == null) db = "mydb";
+//        String user = System.getenv("OPENSHIFT_MONGODB_DB_USERNAME");
+//        String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
+//        int port = Integer.decode(sport);
+//
+//        ServerAddress server = new ServerAddress(host, port);
+//        MongoCredential credential = MongoCredential.createCredential(user, db, password.toCharArray());
+//        MongoClient mongoClient = new MongoClient(server, Arrays.asList(credential));
+//        return mongoClient;
+        return new MongoClient( "localhost", PORT);
     }
 
     public void save() throws Exception{

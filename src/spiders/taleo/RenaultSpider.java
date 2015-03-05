@@ -1,15 +1,18 @@
 package spiders.taleo;
 
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import db.Post;
-import org.joda.time.*;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import spiders.Analyser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -18,12 +21,7 @@ import java.util.Locale;
 public class RenaultSpider extends TaleoSpider {
 
     public RenaultSpider() throws Exception {
-        super("https://tas-renault.taleo.net/careersection/5/moresearch.ftl?lang=fr_fr", new HashMap<String, String>(){{
-            put("finance", "20201430233");
-            put("informatique", "24201430233");
-            put("technologies", "26101430233");
-            put("logistique", "46101430233");
-        }});
+        super("https://tas-renault.taleo.net/careersection/5/moresearch.ftl?lang=fr_fr");
     }
 
     public void crawlData() throws Exception {
@@ -59,7 +57,7 @@ public class RenaultSpider extends TaleoSpider {
         for (int i = 1; ; i ++){
             postDate = new SimpleDateFormat("dd MMMM yyyy",Locale.FRENCH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
             days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
-            if (days < 5) postDates.add(postDate);
+            if (days < 2) postDates.add(postDate);
             else break;
         }
         // have to update pages by clicking next
@@ -68,14 +66,14 @@ public class RenaultSpider extends TaleoSpider {
             analyzePage(detailPage, postDates.get(0));
             for (int i = 1; i < postDates.size(); i ++) {
                 detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID753.Next").click();
-                analyzePage(detailPage, postDates.get(i));
+                this.analyzePage(detailPage, postDates.get(i));
             }
         }
 
         webClient.closeAllWindows();
     }
 
-    static void analyzePage(HtmlPage page, Date postDate) throws Exception {
+    void analyzePage(HtmlPage page, Date postDate) throws Exception {
         String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
         String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
         String source = "RENAULT";
@@ -86,7 +84,7 @@ public class RenaultSpider extends TaleoSpider {
         String duration = Analyser.getDuration(description);
         String bac = Analyser.getBac(description);
 
-        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
+        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, this.targetUrl.toString(), postDate);
         post.save();
 
         System.out.print(post + "\n");

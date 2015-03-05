@@ -19,6 +19,7 @@ public class Post {
     private String bac; //"345"
     private String duration; // 3, 6
     private String reference;
+    private String link;
     private Date postDate;
 
 
@@ -33,10 +34,11 @@ public class Post {
     static final String BAC = "bac";
     static final String DURATION = "duration";
     static final String REFERENCE = "reference";
+    static final String LINK = "link";
     static final String POST_DATE = "postDate";
 
 
-    public Post (String id, String source, String title, String enterprise, String field, String bac, String duration, String reference, Date postDate) {
+    public Post (String id, String source, String title, String enterprise, String field, String bac, String duration, String reference, String link, Date postDate) {
         this.id = id;
         this.source = source;
         this.title = title;
@@ -45,6 +47,7 @@ public class Post {
         this.bac = bac;
         this.duration = duration;
         this.reference = reference;
+        this.link = link;
         this.postDate = postDate;
     }
 
@@ -80,6 +83,10 @@ public class Post {
         return this.reference;
     }
 
+    public String getLink() {
+        return this.link;
+    }
+
     public Date getPostDate() {
         return this.postDate;
     }
@@ -103,6 +110,7 @@ public class Post {
     public void save() throws Exception{
         MongoClient mongoClient = Post.getMongoClient();
         DB stagedb = mongoClient.getDB(DB_NAME);
+        //DB stagedb = mongoClient.getDB(System.getenv("OPENSHIFT_APP_NAME"));
         DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
         BasicDBObject postDBObject = new BasicDBObject(ID, this.id)
                 .append(SOURCE, this.source)
@@ -112,6 +120,7 @@ public class Post {
                 .append(BAC, this.bac)
                 .append(DURATION, this.duration)
                 .append(REFERENCE, this.reference)
+                .append(LINK, this.link)
                 .append(POST_DATE, this.postDate);
 
         if(postsCollection.findOne(new BasicDBObject(ID, this.id)) == null) {
@@ -126,6 +135,7 @@ public class Post {
 
         MongoClient mongoClient = Post.getMongoClient();
         DB stagedb = mongoClient.getDB(DB_NAME);
+        //DB stagedb = mongoClient.getDB(System.getenv("OPENSHIFT_APP_NAME"));
         DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
 
         Pattern patternKeywords = Pattern.compile("(.*)" + keywords +"(.*)", Pattern.CASE_INSENSITIVE);
@@ -149,6 +159,7 @@ public class Post {
                     dbObject.getString(BAC),
                     dbObject.getString(DURATION),
                     dbObject.getString(REFERENCE),
+                    dbObject.getString(LINK),
                     dbObject.getDate(POST_DATE));
             list.add(post);
         }
@@ -165,6 +176,7 @@ public class Post {
         str += BAC + " : " + this.bac + "\n";
         str += DURATION + " : " + this.duration + "\n";
         str += REFERENCE + " : " + this.reference + "\n";
+        str += LINK + " : " + this.link + "\n";
         str += POST_DATE + " : " + this.postDate + "\n";
         return str;
     }

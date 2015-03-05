@@ -12,7 +12,6 @@ import spiders.Analyser;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -20,15 +19,8 @@ import java.util.Locale;
  */
 public class AlstomSpider extends TaleoSpider {
 
-    private HashMap<String, String> fieldTable;
-
     public AlstomSpider() throws Exception {
-        super("https://alstom.taleo.net/careersection/2/moresearch.ftl?lang=en", new HashMap<String, String>(){{
-            put("finance", "3870450175");
-            put("informatique", "5370450175");
-            put("technologies", "29170114043");
-            put("logistique", "5470450175");
-        }});
+        super("https://alstom.taleo.net/careersection/2/moresearch.ftl?lang=en");
     }
 
     public void crawlData() throws Exception {
@@ -43,7 +35,7 @@ public class AlstomSpider extends TaleoSpider {
         for (int i = 1; ; i ++){
             postDate = new SimpleDateFormat("MMM dd, yyyy",Locale.ENGLISH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
             days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
-            if (days < 5) postDates.add(postDate);
+            if (days < 2) postDates.add(postDate);
             else break;
         }
         // have to update pages by clicking next
@@ -52,14 +44,14 @@ public class AlstomSpider extends TaleoSpider {
             analyzePage(detailPage, postDates.get(0));
             for (int i = 1; i < postDates.size(); i ++) {
                 detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID868.Next").click();
-                analyzePage(detailPage, postDates.get(i));
+                this.analyzePage(detailPage, postDates.get(i));
             }
         }
 
         webClient.closeAllWindows();
     }
 
-    static void analyzePage(HtmlPage page, Date postDate) throws Exception {
+    void analyzePage(HtmlPage page, Date postDate) throws Exception {
         String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
         String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
         String source = "ALSTOM";
@@ -70,7 +62,7 @@ public class AlstomSpider extends TaleoSpider {
         String duration = Analyser.getDuration(description);
         String bac = Analyser.getBac(description);
 
-        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
+        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, this.targetUrl.toString(), postDate);
         post.save();
 
         System.out.print(post + "\n");

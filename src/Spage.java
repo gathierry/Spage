@@ -1,16 +1,9 @@
-import db.Post;
+import spiders.EdfSpider;
 
 public class Spage {
 
 	public static void main(String[] args) throws Exception {
-//        EtudiantSpider eSpider = new EtudiantSpider();
-//        eSpider.crawlData();
-//        AlstomSpider aSpider = new AlstomSpider();
-//        aSpider.crawlData();
-//        RenaultSpider rSpider = new RenaultSpider();
-//        rSpider.crawlData();
-
-        System.out.println(Post.getList("", "3", "", ""));
+        new EdfSpider().crawlData();
     }
 
 

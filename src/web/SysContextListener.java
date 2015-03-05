@@ -1,5 +1,6 @@
 package web;
 
+import spiders.EdfSpider;
 import spiders.taleo.AlstomSpider;
 import spiders.taleo.RenaultSpider;
 
@@ -33,10 +34,19 @@ public class SysContextListener implements ServletContextListener {
                 }
             }
         };
+        Runnable task3 = new Runnable() {
+            public void run() {
+                try {
+                    new EdfSpider().crawlData();
+                } catch (Exception e) {
+                }
+            }
+        };
         Executor executor = Executors.newScheduledThreadPool(5);
         ScheduledExecutorService scheduler = (ScheduledExecutorService) executor;
         scheduler.scheduleAtFixedRate(task1, 0, 86400, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(task2, 0, 86400, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(task3, 0, 86400, TimeUnit.SECONDS);
 
         event.getServletContext().log("database updated");
     }

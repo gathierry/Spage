@@ -25,7 +25,11 @@
                     <tbody>
                          <c:forEach var="post" items="${posts}">
                             <tr>
-                              <td id="title">${post.title}</td>
+                              <td id="title">
+                                <a href=${post.link} target="_blank">
+                                    ${post.title}
+                                </a>
+                              </td>
                               <td id="enterprise">${post.enterprise}</td>
                               <td id="reference">${post.reference}</td>
                             </tr>

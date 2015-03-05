@@ -2,7 +2,6 @@ package spiders.taleo;
 
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
@@ -38,15 +37,6 @@ public abstract class TaleoSpider extends Spider {
         HtmlSelect numSelect = page.getHtmlElementById("requisitionListInterface.dropListSize");
         HtmlOption numOp = numSelect.getOptionByText("100");
         page = numSelect.setSelectedAttribute(numOp, true);
-
-        // check intern
-        HtmlCheckBoxInput internCheckBoxInput = (HtmlCheckBoxInput)page.getHtmlElementById("advancedSearchInterface.jobtype_1check");
-        internCheckBoxInput.setChecked(true);
-
-        // select location
-        HtmlSelect locSelect = page.getHtmlElementById("advancedSearchInterface.location1L1");
-        HtmlOption locOp = locSelect.getOptionByText("France");
-        locSelect.setSelectedAttribute(locOp, true);
 
         return page;
     }

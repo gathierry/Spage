@@ -2,7 +2,10 @@ package spiders.taleo;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import db.Post;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -26,6 +29,15 @@ public class AlstomSpider extends TaleoSpider {
     public void crawlData() throws Exception {
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
         HtmlPage page = this.taleoSearchPage(webClient);
+
+        // check intern
+        HtmlCheckBoxInput internCheckBoxInput = (HtmlCheckBoxInput)page.getHtmlElementById("advancedSearchInterface.jobtype_1check");
+        internCheckBoxInput.setChecked(true);
+
+        // select location
+        HtmlSelect locSelect = page.getHtmlElementById("advancedSearchInterface.location1L1");
+        HtmlOption locOp = locSelect.getOptionByText("France");
+        locSelect.setSelectedAttribute(locOp, true);
 
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
@@ -63,7 +75,7 @@ public class AlstomSpider extends TaleoSpider {
         String bac = Analyser.getBac(description);
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, this.targetUrl.toString(), postDate);
-        post.save();
+        //post.save();
 
         System.out.print(post + "\n");
     }

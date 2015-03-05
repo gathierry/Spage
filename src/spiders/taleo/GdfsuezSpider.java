@@ -18,12 +18,12 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by Thierry on 2/27/15.
+ * Created by Thierry on 3/5/15.
  */
-public class RenaultSpider extends TaleoSpider {
+public class GdfsuezSpider extends TaleoSpider {
 
-    public RenaultSpider() throws Exception {
-        super("https://tas-renault.taleo.net/careersection/5/moresearch.ftl?lang=fr_fr");
+    public GdfsuezSpider() throws Exception {
+        super("https://gdfsuez.taleo.net/careersection/10500/moresearch.ftl?lang=fr-fr&#");
     }
 
     public void crawlData() throws Exception {
@@ -33,11 +33,14 @@ public class RenaultSpider extends TaleoSpider {
 
         // select location
         HtmlSelect locSelect = page.getHtmlElementById("advancedSearchInterface.location1L1");
-        HtmlOption locOp = locSelect.getOptionByText("France");
+        HtmlOption locOp = locSelect.getOptionByText("Europe");
+        locSelect.setSelectedAttribute(locOp, true);
+        locSelect = page.getHtmlElementById("advancedSearchInterface.location1L2");
+        locOp = locSelect.getOptionByText("France");
         locSelect.setSelectedAttribute(locOp, true);
 
         // check intern
-        HtmlCheckBoxInput internCheckBoxInput = (HtmlCheckBoxInput)page.getHtmlElementById("advancedSearchInterface.jobtype_2check");
+        HtmlCheckBoxInput internCheckBoxInput = page.getHtmlElementById("advancedSearchInterface.employeeStatus_3check");
         internCheckBoxInput.setChecked(true);
 
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
@@ -46,7 +49,7 @@ public class RenaultSpider extends TaleoSpider {
         int days = 0;
         ArrayList<Date> postDates = new ArrayList<Date>();
         for (int i = 1; ; i ++){
-            postDate = new SimpleDateFormat("dd MMMM yyyy",Locale.FRENCH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
+            postDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
             days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
             if (days < 2) postDates.add(postDate);
             else break;
@@ -56,7 +59,7 @@ public class RenaultSpider extends TaleoSpider {
             HtmlPage detailPage = page.getHtmlElementById("requisitionListInterface.reqTitleLinkAction.row1").click();
             analyzePage(detailPage, postDates.get(0));
             for (int i = 1; i < postDates.size(); i ++) {
-                detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID753.Next").click();
+                detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID868.Next").click();
                 this.analyzePage(detailPage, postDates.get(i));
             }
         }
@@ -67,18 +70,19 @@ public class RenaultSpider extends TaleoSpider {
     void analyzePage(HtmlPage page, Date postDate) throws Exception {
         String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
         String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
-        String source = "RENAULT";
+        String source = "GDFsuez";
         String id = source + "-" + reference;
-        String enterprise = "Renault";
-        String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1678.row1").asText();
-        String description = page.getHtmlElementById("requisitionDescriptionInterface.ID3119.row.row1").asText();
+        String enterprise = "GDF SUEZ";
+        String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1781.row1").asText();
+        String description = page.getHtmlElementById("requisitionDescriptionInterface.ID3302.row.row1").asText();
         String duration = Analyser.getDuration(description);
         String bac = Analyser.getBac(description);
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, this.targetUrl.toString(), postDate);
-        //post.save();
+        post.save();
 
         System.out.print(post + "\n");
     }
+
 
 }

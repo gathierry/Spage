@@ -64,7 +64,7 @@ public class RenaultSpider extends TaleoSpider {
         webClient.closeAllWindows();
     }
 
-    void analyzePage(HtmlPage page, Date postDate) throws Exception {
+    private boolean analyzePage(HtmlPage page, Date postDate) throws Exception {
         String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
         String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
         String source = "RENAULT";
@@ -76,9 +76,8 @@ public class RenaultSpider extends TaleoSpider {
         String bac = Analyser.getBac(description);
 
         Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, this.targetUrl.toString(), postDate);
-        //post.save();
-
         System.out.print(post + "\n");
+        return post.save();
     }
 
 }

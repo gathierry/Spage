@@ -107,10 +107,16 @@ public class Post {
         return new MongoClient( "localhost", PORT);
     }
 
-    public void save() throws Exception{
-        MongoClient mongoClient = Post.getMongoClient();
+    private static DB getDataBase(MongoClient mongoClient) {
         DB stagedb = mongoClient.getDB(DB_NAME);
         //DB stagedb = mongoClient.getDB(System.getenv("OPENSHIFT_APP_NAME"));
+        return stagedb;
+    }
+
+    public boolean save() throws Exception{
+        boolean success = false;
+        MongoClient mongoClient = getMongoClient();
+        DB stagedb = getDataBase(mongoClient);
         DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
         BasicDBObject postDBObject = new BasicDBObject(ID, this.id)
                 .append(SOURCE, this.source)
@@ -125,17 +131,17 @@ public class Post {
 
         if(postsCollection.findOne(new BasicDBObject(ID, this.id)) == null) {
             postsCollection.insert(postDBObject);
+            success = true;
         }
-
         mongoClient.close();
+        return success;
     }
 
     static public ArrayList<Post> getList(String keywords, String bac, String duration, String field) throws UnknownHostException {
         ArrayList<Post> list = new ArrayList<Post>();
 
-        MongoClient mongoClient = Post.getMongoClient();
-        DB stagedb = mongoClient.getDB(DB_NAME);
-        //DB stagedb = mongoClient.getDB(System.getenv("OPENSHIFT_APP_NAME"));
+        MongoClient mongoClient = getMongoClient();
+        DB stagedb = getDataBase(mongoClient);
         DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
 
         Pattern patternKeywords = Pattern.compile("(.*)" + keywords +"(.*)", Pattern.CASE_INSENSITIVE);
@@ -148,7 +154,7 @@ public class Post {
                 .append(DURATION, patternDuration)
                 .append(FIELD, patternField);
 
-        DBCursor cursor = postsCollection.find(query).skip(0).limit(100).sort(new BasicDBObject(POST_DATE, -1));
+        DBCursor cursor = postsCollection.find(query).limit(1000).sort(new BasicDBObject(POST_DATE, -1).append(ENTERPRISE, 1));
         while (cursor.hasNext()) {
             BasicDBObject dbObject = (BasicDBObject) cursor.next();
             Post post = new Post(dbObject.getString(ID),
@@ -165,6 +171,16 @@ public class Post {
         }
         mongoClient.close();
         return list;
+    }
+
+    static public void removeHistory() throws UnknownHostException {
+        MongoClient mongoClient = getMongoClient();
+        DB stagedb = getDataBase(mongoClient);
+        DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
+
+        Date limitDate = new Date(System.currentTimeMillis() - (7 * 1000 * 86400));
+        BasicDBObject query = new BasicDBObject(POST_DATE, limitDate);
+        postsCollection.remove(query);
     }
 
     public String toString() {

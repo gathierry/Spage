@@ -2,6 +2,8 @@ package spiders;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.Locale;
+
 /**
  * Created by Thierry on 2/28/15.
  */
@@ -9,7 +11,7 @@ public class Analyser {
 
     static public String getDuration(String description) {
 
-        int mIndex = description.lastIndexOf("mois");
+        int mIndex = description.toLowerCase(Locale.FRENCH).lastIndexOf("mois");
         int mIndex2 = mIndex + "mois".length();
         if (mIndex < 0) {
             mIndex = description.lastIndexOf("months");
@@ -37,9 +39,10 @@ public class Analyser {
     static public String getBac(String description) {
         String result = "0";
         description = description.replace(" ", "");
+        description = description.toLowerCase();
         int index = 1;
         while (index > 0) {
-            index = findBac(description, index + 1);
+            index = description.indexOf("bac", index + 1);
             if (index > 0) {
                 if (description.substring(index + 3, index + 4).equals("+")){
                     String num = description.substring(index + 4, index + 5);
@@ -51,16 +54,4 @@ public class Analyser {
         if (result.equals("0")) result = "12345";
         return result;
     }
-
-    static private int findBac(String string, int index) {
-        int bac = string.indexOf("bac", index);
-        if (bac < 0) {
-            bac = string.indexOf("Bac", index);
-            if (bac < 0) {
-                bac = string.indexOf("BAC", index);
-            }
-        }
-        return bac;
-    }
-
 }

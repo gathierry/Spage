@@ -38,5 +38,11 @@
                 </table>
             <div>
         </center>
+
+        <footer>
+            <hr>
+            <p>Copyright © 2015</p>
+            <p>CentraleSupélec Rennes</p>
+        </footer>
     </body>
 </html>

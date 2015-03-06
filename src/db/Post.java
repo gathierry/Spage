@@ -153,8 +153,7 @@ public class Post {
                 .append(BAC, patternBac)
                 .append(DURATION, patternDuration)
                 .append(FIELD, patternField);
-
-        DBCursor cursor = postsCollection.find(query).limit(1000).sort(new BasicDBObject(POST_DATE, -1).append(ENTERPRISE, 1));
+        DBCursor cursor = postsCollection.find(query).limit(100).sort(new BasicDBObject(POST_DATE, -1).append(ENTERPRISE, 1));
         while (cursor.hasNext()) {
             BasicDBObject dbObject = (BasicDBObject) cursor.next();
             Post post = new Post(dbObject.getString(ID),

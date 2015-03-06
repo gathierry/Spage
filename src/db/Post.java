@@ -181,6 +181,8 @@ public class Post {
         Date limitDate = new Date(System.currentTimeMillis() - (7 * 1000 * 86400));
         BasicDBObject query = new BasicDBObject(POST_DATE, limitDate);
         postsCollection.remove(query);
+
+        mongoClient.close();
     }
 
     public String toString() {

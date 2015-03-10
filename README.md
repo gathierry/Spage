@@ -15,9 +15,8 @@
 - title
 - enterprise
 - field
-- bac
-- duration
-  - 3
-  - 6
+- bac "1-5"
+- duration "3/6"
 - reference
 - postDate
+- link

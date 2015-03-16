@@ -12,6 +12,10 @@
         <title>Spage</title>
     </head>
     <body>
+        <div>
+            <a href="/"> <- Nouvelle recherche </a>
+        </div>
+
         <center>
             <div>
                 <table class="table table-hover table-striped">

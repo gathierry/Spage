@@ -151,10 +151,13 @@ public class Post {
 
         ArrayList <BasicDBObject> searchList = new ArrayList<BasicDBObject>();
         for (String key : keys) {
-            Pattern patternKeywords = Pattern.compile("(.*)" + key +"(.*)", Pattern.CASE_INSENSITIVE);
-            searchList.add(new BasicDBObject(TITLE, patternKeywords));
-            searchList.add(new BasicDBObject(FIELD, patternKeywords));
-            searchList.add(new BasicDBObject(ENTERPRISE, patternKeywords));
+            String[] fields = FieldGuesser.searchField(key);
+            for (String f : fields) {
+                Pattern patternKeywords = Pattern.compile("(.*)" + f + "(.*)", Pattern.CASE_INSENSITIVE);
+                searchList.add(new BasicDBObject(TITLE, patternKeywords));
+                searchList.add(new BasicDBObject(FIELD, patternKeywords));
+                searchList.add(new BasicDBObject(ENTERPRISE, patternKeywords));
+            }
         }
 
         BasicDBObject query = new BasicDBObject("$or", searchList)

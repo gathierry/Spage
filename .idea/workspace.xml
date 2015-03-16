@@ -57,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Analyser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Analyser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/spiders/Analyser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1330">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state vertical-scroll-proportion="-2.1010363" vertical-offset="944" max-vertical-offset="1330">
+              <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -123,11 +123,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Post.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Post.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/db/Post.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0" vertical-offset="2185" max-vertical-offset="6365">
-              <caret line="73" column="30" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2850" max-vertical-offset="6365">
+              <caret line="128" column="42" selection-start-line="128" selection-start-column="42" selection-end-line="128" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1656#1657#0" expanded="true" />
@@ -138,6 +138,7 @@
                 <element signature="e#1818#1819#0" expanded="true" />
                 <element signature="e#1855#1856#0" expanded="true" />
                 <element signature="e#1893#1894#0" expanded="true" />
+                <element signature="e#1925#1926#0" expanded="true" />
                 <element signature="e#1958#1959#0" expanded="true" />
                 <element signature="e#1988#1989#0" expanded="true" />
                 <element signature="e#2019#2020#0" expanded="true" />
@@ -990,20 +991,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/spiders/Analyser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1330">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/db/Post.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0" vertical-offset="2185" max-vertical-offset="6365">
-          <caret line="73" column="30" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2850" max-vertical-offset="6365">
+          <caret line="128" column="42" selection-start-line="128" selection-start-column="42" selection-end-line="128" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1656#1657#0" expanded="true" />
@@ -1014,6 +1005,7 @@
             <element signature="e#1818#1819#0" expanded="true" />
             <element signature="e#1855#1856#0" expanded="true" />
             <element signature="e#1893#1894#0" expanded="true" />
+            <element signature="e#1925#1926#0" expanded="true" />
             <element signature="e#1958#1959#0" expanded="true" />
             <element signature="e#1988#1989#0" expanded="true" />
             <element signature="e#2019#2020#0" expanded="true" />
@@ -1043,6 +1035,16 @@
             <element signature="e#6720#6721#0" expanded="true" />
             <element signature="e#8925#8931#0" expanded="true" />
             <element signature="e#9421#9436#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/spiders/Analyser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1010363" vertical-offset="944" max-vertical-offset="1330">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

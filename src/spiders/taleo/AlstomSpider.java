@@ -1,35 +1,44 @@
 package spiders.taleo;
 
-import java.text.*;
-import java.util.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
-import org.joda.time.*;
-
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import db.Post;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import spiders.Analyser;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Thierry on 2/9/15.
  */
 public class AlstomSpider extends TaleoSpider {
 
-    private HashMap<String, String> fieldTable;
-
     public AlstomSpider() throws Exception {
-        super("https://alstom.taleo.net/careersection/2/moresearch.ftl?lang=en", new HashMap<String, String>(){{
-            put("finance", "3870450175");
-            put("informatique", "5370450175");
-            put("technologies", "29170114043");
-            put("logistique", "5470450175");
-        }});
+        super("https://alstom.taleo.net/careersection/2/moresearch.ftl?lang=en");
     }
 
-    public void crawlData(String field, String duration, String keyword, int bac) throws Exception {
-
+    public void crawlData() throws Exception {
         final WebClient webClient = new WebClient(BrowserVersion.CHROME);
-        HtmlPage page = this.taleoSearchPage(webClient, field, duration, keyword, bac);
+        HtmlPage page = this.taleoSearchPage(webClient);
+
+        // check intern
+        HtmlCheckBoxInput internCheckBoxInput = (HtmlCheckBoxInput)page.getHtmlElementById("advancedSearchInterface.jobtype_1check");
+        internCheckBoxInput.setChecked(true);
+
+        // select location
+        HtmlSelect locSelect = page.getHtmlElementById("advancedSearchInterface.location1L1");
+        HtmlOption locOp = locSelect.getOptionByText("France");
+        locSelect.setSelectedAttribute(locOp, true);
+
         page = page.getHtmlElementById("advancedSearchFooterInterface.searchAction").click();
 
         Date postDate = new Date();
@@ -38,7 +47,7 @@ public class AlstomSpider extends TaleoSpider {
         for (int i = 1; ; i ++){
             postDate = new SimpleDateFormat("MMM dd, yyyy",Locale.ENGLISH).parse(page.getHtmlElementById("requisitionListInterface.reqPostingDate.row" + i).asText());
             days = new Period(new DateTime(postDate), new DateTime(), PeriodType.days()).getDays();
-            if (days < 10) postDates.add(postDate);
+            if (days < 2) postDates.add(postDate);
             else break;
         }
         // have to update pages by clicking next
@@ -47,26 +56,26 @@ public class AlstomSpider extends TaleoSpider {
             analyzePage(detailPage, postDates.get(0));
             for (int i = 1; i < postDates.size(); i ++) {
                 detailPage = detailPage.getHtmlElementById("requisitionDescriptionInterface.pagerDivID868.Next").click();
-                analyzePage(detailPage, postDates.get(i));
+                this.analyzePage(detailPage, postDates.get(i));
             }
         }
 
         webClient.closeAllWindows();
     }
 
-    static void analyzePage(HtmlPage page, Date postDate) throws Exception {
+    private boolean analyzePage(HtmlPage page, Date postDate) throws Exception {
         String title = page.getHtmlElementById("requisitionDescriptionInterface.reqTitleLinkAction.row1").asText();
         String reference = page.getHtmlElementById("requisitionDescriptionInterface.reqContestNumberValue.row1").asText();
         String source = "ALSTOM";
         String id = source + "-" + reference;
         String enterprise = "Alstom";
         String field = page.getHtmlElementById("requisitionDescriptionInterface.ID1739.row1").asText();
-        int bac = 0;
-        int duration = Analyser.getDuration(page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText());
+        String description = page.getHtmlElementById("requisitionDescriptionInterface.ID3306.row.row1").asText();
+        String duration = Analyser.getDuration(description);
+        String bac = Analyser.getBac(description);
 
-        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, postDate);
-       // post.save();
-
+        Post post = new Post(id, source, title, enterprise, field, bac, duration, reference, this.targetUrl.toString(), postDate);
         System.out.print(post + "\n");
+        return post.save();
     }
 }

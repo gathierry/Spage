@@ -1,24 +1,17 @@
-import db.Post;
-import spiders.Analyser;
+import com.sun.javafx.scene.layout.region.Margins;
+import db.Converter;
 import spiders.EtudiantSpider;
-import spiders.taleo.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
+import spiders.RteSpider;
 
 public class Spage {
-	
+
 	public static void main(String[] args) throws Exception {
-//        EtudiantSpider eSpider = new EtudiantSpider();
-//        eSpider.crawlData("informatique", "", "", 0);
-        AlstomSpider aSpider = new AlstomSpider();
-        aSpider.crawlData("", "", "", 4);
-//        RenaultSpider rSpider = new RenaultSpider();
-//        rSpider.crawlData("", "", "", 4);
+//        new EtudiantSpider().crawlData();
+        String[] result = Converter.searchField("dfs");
+        for(int i = 0;i<result.length;i++)
+            System.out.println(result[i]);
+    }
 
-        System.out.print(new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH).parse("Feb 07, 2013"));
 
-	}
 
 }

@@ -62,12 +62,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Analyser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Analyser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/spiders/Analyser.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="990">
               <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
+=======
+            <state vertical-scroll-proportion="-2.1010363" vertical-offset="944" max-vertical-offset="1330">
+              <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+>>>>>>> origin/master
             </state>
           </provider>
         </entry>
@@ -129,8 +137,13 @@
       <file leaf-file-name="Post.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/db/Post.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3270">
               <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="2850" max-vertical-offset="6365">
+              <caret line="128" column="42" selection-start-line="128" selection-start-column="42" selection-end-line="128" selection-end-column="42" />
+>>>>>>> origin/master
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1575#1576#0" expanded="true" />
@@ -201,11 +214,18 @@
         <option value="$PROJECT_DIR$/src/spiders/taleo/AlstomSpider.java" />
         <option value="$PROJECT_DIR$/src/db/Converter.java" />
         <option value="$PROJECT_DIR$/src/spiders/EtudiantSpider.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/spiders/Analyser.java" />
         <option value="$PROJECT_DIR$/src/web/Result.java" />
         <option value="$PROJECT_DIR$/src/db/Post.java" />
         <option value="$PROJECT_DIR$/src/Spage.java" />
         <option value="$PROJECT_DIR$/webRoot/WEB-INF/web.xml" />
+=======
+        <option value="$PROJECT_DIR$/src/db/Converter.java" />
+        <option value="$PROJECT_DIR$/src/Spage.java" />
+        <option value="$PROJECT_DIR$/src/db/Post.java" />
+        <option value="$PROJECT_DIR$/src/spiders/Analyser.java" />
+>>>>>>> origin/master
       </list>
     </option>
   </component>
@@ -362,14 +382,14 @@
     <property name="options.lastSelected" value="vcs.Git" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="300" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.STATE" value="ToolWindow" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/joda-time-2.7.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/xml-apis-1.4.01.jar!/" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="FullScreen" value="false" />
   </component>
@@ -1008,6 +1028,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/webRoot/result.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855">
@@ -1017,6 +1038,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/db/FieldGuesser.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/db/Converter.java">
+>>>>>>> origin/master
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
           <caret line="12" column="68" selection-start-line="12" selection-start-column="68" selection-end-line="12" selection-end-column="68" />
@@ -1046,8 +1070,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/db/Post.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3270">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="0.0" vertical-offset="2850" max-vertical-offset="6365">
+          <caret line="128" column="42" selection-start-line="128" selection-start-column="42" selection-end-line="128" selection-end-column="42" />
+>>>>>>> origin/master
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1575#1576#0" expanded="true" />
@@ -1075,11 +1104,21 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/webRoot/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6405694" vertical-offset="0" max-vertical-offset="630">
           <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/spiders/Analyser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1010363" vertical-offset="944" max-vertical-offset="1330">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+>>>>>>> origin/master
         </state>
       </provider>
     </entry>
@@ -1140,6 +1179,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1159,7 +1199,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>webRoot</last-edited>
+          <last-edited>commons-codec-1.9</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

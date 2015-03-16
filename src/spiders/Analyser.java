@@ -27,7 +27,11 @@ public class Analyser {
                     min1 = description.substring(mIndex2 + 1, mIndex2 + 2 + "minimum".length());
                 }
                 String min2 = description.substring(mIndex - "minimum".length() - 3, mIndex - 3);
+<<<<<<< HEAD
                 if (min1.startsWith("min") || min2.startsWith("min                                                                                                    ")) {
+=======
+                if (min1.startsWith("min") || min2.startsWith("min")) {
+>>>>>>> b6ff4f12eda72d470838e2ad564f5d85de942bec
                     return "6";
                 }
                 else return "3";

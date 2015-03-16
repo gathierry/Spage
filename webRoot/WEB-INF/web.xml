@@ -24,6 +24,7 @@
 
     <jsp-config>
         <taglib>
+<<<<<<< HEAD
             <taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
             <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
         </taglib>
@@ -39,6 +40,11 @@
             <taglib-uri>http://java.sun.com/jstl/x</taglib-uri>
             <taglib-location>/WEB-INF/tld/x.tld</taglib-location>
         </taglib>
+=======
+            <taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+            <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+        </taglib>
+>>>>>>> b6ff4f12eda72d470838e2ad564f5d85de942bec
     </jsp-config>
 
     <session-config>

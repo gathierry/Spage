@@ -6,6 +6,10 @@ import java.net.UnknownHostException;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import java.net.UnknownHostException;
+import java.util.*;
+import java.util.regex.Pattern;
+
 /**
  * Created by Thierry on 2/28/15.
  */
@@ -169,6 +173,130 @@ public class Post {
             list.add(post);
         }
         mongoClient.close();
+=======
+
+    public String getSource() {
+        return this.source;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getEnterprise() {
+        return this.enterprise;
+    }
+
+    public String getField() {
+        return this.field;
+    }
+
+    public String getBac() {
+        return this.bac;
+    }
+
+    public String getDuration() {
+        return this.duration;
+    }
+
+    public String getReference() {
+        return this.reference;
+    }
+
+    public String getLink() {
+        return this.link;
+    }
+
+    public Date getPostDate() {
+        return this.postDate;
+    }
+
+    private static MongoClient getMongoClient() throws UnknownHostException {
+//        String host = System.getenv("OPENSHIFT_MONGODB_DB_HOST");
+//        String sport = System.getenv("OPENSHIFT_MONGODB_DB_PORT");
+//        String db = System.getenv("OPENSHIFT_APP_NAME");
+//        if(db == null) db = "mydb";
+//        String user = System.getenv("OPENSHIFT_MONGODB_DB_USERNAME");
+//        String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
+//        int port = Integer.decode(sport);
+//
+//        ServerAddress server = new ServerAddress(host, port);
+//        MongoCredential credential = MongoCredential.createCredential(user, db, password.toCharArray());
+//        MongoClient mongoClient = new MongoClient(server, Arrays.asList(credential));
+//        return mongoClient;
+        return new MongoClient( "localhost", PORT);
+    }
+
+    private static DB getDataBase(MongoClient mongoClient) {
+        DB stagedb = mongoClient.getDB(DB_NAME);
+        //DB stagedb = mongoClient.getDB(System.getenv("OPENSHIFT_APP_NAME"));
+        return stagedb;
+    }
+
+    public boolean save() throws Exception{
+        boolean success = false;
+        MongoClient mongoClient = getMongoClient();
+        DB stagedb = getDataBase(mongoClient);
+        DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
+        BasicDBObject postDBObject = new BasicDBObject(ID, this.id)
+                .append(SOURCE, this.source)
+                .append(TITLE, this.title)
+                .append(ENTERPRISE, this.enterprise)
+                .append(FIELD, this.field)
+                .append(BAC, this.bac)
+                .append(DURATION, this.duration)
+                .append(REFERENCE, this.reference)
+                .append(LINK, this.link)
+                .append(POST_DATE, this.postDate);
+
+        if(postsCollection.findOne(new BasicDBObject(ID, this.id)) == null) {
+            postsCollection.insert(postDBObject);
+            success = true;
+        }
+        mongoClient.close();
+        return success;
+    }
+
+    static public ArrayList<Post> getList(String keywords, String bac, String duration) throws UnknownHostException {
+        ArrayList<Post> list = new ArrayList<Post>();
+
+        MongoClient mongoClient = getMongoClient();
+        DB stagedb = getDataBase(mongoClient);
+        DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
+
+        String [] keys = keywords.split(" ");
+
+        Pattern patternBac = Pattern.compile("(.*)" + bac +"(.*)", Pattern.CASE_INSENSITIVE);
+        Pattern patternDuration = Pattern.compile("(.*)" + duration +"(.*)", Pattern.CASE_INSENSITIVE);
+
+        ArrayList <BasicDBObject> searchList = new ArrayList<BasicDBObject>();
+        for (String key : keys) {
+            Pattern patternKeywords = Pattern.compile("(.*)" + key +"(.*)", Pattern.CASE_INSENSITIVE);
+            searchList.add(new BasicDBObject(TITLE, patternKeywords));
+            searchList.add(new BasicDBObject(FIELD, patternKeywords));
+            searchList.add(new BasicDBObject(ENTERPRISE, patternKeywords));
+        }
+
+        BasicDBObject query = new BasicDBObject("$or", searchList)
+                .append(BAC, patternBac)
+                .append(DURATION, patternDuration);
+        DBCursor cursor = postsCollection.find(query).limit(100).sort(new BasicDBObject(POST_DATE, -1).append(ENTERPRISE, 1));
+        while (cursor.hasNext()) {
+            BasicDBObject dbObject = (BasicDBObject) cursor.next();
+            Post post = new Post(dbObject.getString(ID),
+                    dbObject.getString(SOURCE),
+                    dbObject.getString(TITLE),
+                    dbObject.getString(ENTERPRISE),
+                    dbObject.getString(FIELD),
+                    dbObject.getString(BAC),
+                    dbObject.getString(DURATION),
+                    dbObject.getString(REFERENCE),
+                    dbObject.getString(LINK),
+                    dbObject.getDate(POST_DATE));
+            list.add(post);
+        }
+        mongoClient.close();
+>>>>>>> b6ff4f12eda72d470838e2ad564f5d85de942bec
         return list;
     }
 

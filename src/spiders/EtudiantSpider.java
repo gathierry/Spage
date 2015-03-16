@@ -30,6 +30,12 @@ public class EtudiantSpider extends Spider {
     public void crawlData() throws Exception {
 		//make url
 		String newUrl = this.targetUrl.toString() + "/offres/";
+<<<<<<< HEAD
+=======
+//		if (field.length() > 0) newUrl += "domaines-" + fieldTable.get(field) + "/";
+//		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
+//		else if (bac == 5) newUrl += "niveaux-1/";
+>>>>>>> b6ff4f12eda72d470838e2ad564f5d85de942bec
         newUrl += "regions-r3038033_r3037350_r3035876_r3034693_r3030967_r3030293_r3027939_r3027257_r3023519_r1000001_r3017372_r3013756_r3012874_r3007670_r2998268_r2997551_r2993955_r2990119_r2988289_r2987375_r2986492_r2985244_r2983751/";
 		URL url = new URL(newUrl + "page-1.html");
 		System.out.println(url);

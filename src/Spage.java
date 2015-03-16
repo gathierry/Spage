@@ -1,9 +1,9 @@
-import spiders.RteSpider;
+import db.Post;
 
 public class Spage {
 
 	public static void main(String[] args) throws Exception {
-        new RteSpider().crawlData();
+        System.out.println(Post.getList("finance informatique", "", ""));
     }
 
 

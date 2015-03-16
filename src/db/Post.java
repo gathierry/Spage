@@ -137,22 +137,29 @@ public class Post {
         return success;
     }
 
-    static public ArrayList<Post> getList(String keywords, String bac, String duration, String field) throws UnknownHostException {
+    static public ArrayList<Post> getList(String keywords, String bac, String duration) throws UnknownHostException {
         ArrayList<Post> list = new ArrayList<Post>();
 
         MongoClient mongoClient = getMongoClient();
         DB stagedb = getDataBase(mongoClient);
         DBCollection postsCollection = stagedb.getCollection(COLLECTION_NAME);
 
-        Pattern patternKeywords = Pattern.compile("(.*)" + keywords +"(.*)", Pattern.CASE_INSENSITIVE);
+        String [] keys = keywords.split(" ");
+
         Pattern patternBac = Pattern.compile("(.*)" + bac +"(.*)", Pattern.CASE_INSENSITIVE);
         Pattern patternDuration = Pattern.compile("(.*)" + duration +"(.*)", Pattern.CASE_INSENSITIVE);
-        Pattern patternField = Pattern.compile("(.*)" + field +"(.*)", Pattern.CASE_INSENSITIVE);
 
-        BasicDBObject query = new BasicDBObject(TITLE, patternKeywords)
+        ArrayList <BasicDBObject> searchList = new ArrayList<BasicDBObject>();
+        for (String key : keys) {
+            Pattern patternKeywords = Pattern.compile("(.*)" + key +"(.*)", Pattern.CASE_INSENSITIVE);
+            searchList.add(new BasicDBObject(TITLE, patternKeywords));
+            searchList.add(new BasicDBObject(FIELD, patternKeywords));
+            searchList.add(new BasicDBObject(ENTERPRISE, patternKeywords));
+        }
+
+        BasicDBObject query = new BasicDBObject("$or", searchList)
                 .append(BAC, patternBac)
-                .append(DURATION, patternDuration)
-                .append(FIELD, patternField);
+                .append(DURATION, patternDuration);
         DBCursor cursor = postsCollection.find(query).limit(100).sort(new BasicDBObject(POST_DATE, -1).append(ENTERPRISE, 1));
         while (cursor.hasNext()) {
             BasicDBObject dbObject = (BasicDBObject) cursor.next();

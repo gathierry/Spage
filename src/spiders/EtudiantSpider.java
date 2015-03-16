@@ -1,14 +1,13 @@
 package spiders;
 
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import com.gargoylesoftware.htmlunit.*;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 
-import db.Post;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 
 public class EtudiantSpider extends Spider {
 
@@ -27,9 +26,7 @@ public class EtudiantSpider extends Spider {
     public void crawlData() throws Exception {
 		//make url
 		String newUrl = this.targetUrl.toString() + "/offres/";
-//		if (field.length() > 0) newUrl += "domaines-" + fieldTable.get(field) + "/";
-//		if (bac == 3 || bac == 4) newUrl += "niveaux-2/";
-//		else if (bac == 5) newUrl += "niveaux-1/";
+
         newUrl += "regions-r3038033_r3037350_r3035876_r3034693_r3030967_r3030293_r3027939_r3027257_r3023519_r1000001_r3017372_r3013756_r3012874_r3007670_r2998268_r2997551_r2993955_r2990119_r2988289_r2987375_r2986492_r2985244_r2983751/";
 		URL url = new URL(newUrl + "page-1.html");
 		System.out.println(url);
@@ -68,23 +65,32 @@ public class EtudiantSpider extends Spider {
                         // title
                         DomElement div1 = ((HtmlPage) cellPage).getElementsByTagName("h1").get(0);
                         String title = div1.asText();
-                        System.out.println(title + "\n");
+                        System.out.println("title "+title);
 
                         div1 = ((HtmlPage) cellPage).getElementsByTagName("h2").get(0);
                         String divContent = div1.asText();
                         String[] divContentSplited = divContent.split("\\|");
                         // employeur
                         String enterprise = cutString(divContentSplited[0].replace(" ",""), "Employeur:", "(autresoffres");
+//                        System.out.println("enterprise "+enterprise);
+//
+//
+//                        for(int j = 0;j < divContentSplited.length;j++)
+//                        {
+//                        	System.out.println(j + " - " + divContentSplited[j].replace(" ",""));
+//                        }
+//                        String source = "Etudiant";
 
-                        for(int j = 0;j < divContentSplited.length;j++)
-                        {
-                        	System.out.println(j + " - " + divContentSplited[j].replace(" ",""));
-                        }
 
                         DomElement div2 = ((HtmlPage) cellPage).getElementById("content-color");
                         divContent = div2.asText();
-                        System.out.println("---" + cutString(divContent, "Période", "Rémunération"));
-                        System.out.println("______" + cellPage.getUrl() + "\n\n\n");
+                        divContent = cutString(divContent, "Période", "Rémunération");
+                        System.out.println("discription originale " + divContent);
+
+                        String duration = Analyser.getDuration(divContent);
+
+                        System.out.println("duration " + duration);
+                        System.out.println("lien " + cellPage.getUrl() + "\n\n\n");
 
 
                         //Post post = new Post(...);

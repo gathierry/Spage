@@ -22,9 +22,14 @@ public class Analyser {
         String neighbor = description.substring(mIndex - 2, mIndex - 1);
         if (NumberUtils.isNumber(neighbor)) {
             if (Integer.parseInt(neighbor) <= 3) {
-                String min1 = description.substring(mIndex2 + 1, mIndex2 + 2 + "minimum".length());
+                String min1 = new String();
+                if(mIndex2 < description.length()-2) {
+                    min1 = description.substring(mIndex2 + 1, mIndex2 + 2 + "minimum".length());
+                }
                 String min2 = description.substring(mIndex - "minimum".length() - 3, mIndex - 3);
+
                 if (min1.startsWith("min") || min2.startsWith("min")) {
+
                     return "6";
                 }
                 else return "3";

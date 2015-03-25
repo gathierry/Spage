@@ -54,8 +54,8 @@ public class RteSpider extends Spider {
                 //duration & bac
                 HtmlDivision jobDiv = detailPage.getHtmlElementById("job");
                 String description = jobDiv.asText();
-                String duration = Analyser.getDuration(description);
-                String bac = Analyser.getBac(description);
+                String duration = Analyser.getDuration(title + description);
+                String bac = Analyser.getBac(title + description);
                 //field & post date
                 String noSpaceDes = description.replace(" ", "");
                 int a = noSpaceDes.indexOf("Familledemétiers:");

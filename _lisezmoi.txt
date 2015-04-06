@@ -1,0 +1,39 @@
+projet-logiciel-seq7-LIShiyu-WANGWei/
+├─src/
+│  └─main/
+│     ├─java/
+│     │  ├─db/
+│     │  │  ├─FieldGuesser.java - Etendre le domaine de recherche
+│     │  │  └─Post.java - Modèle de donnée et les opérations de la base de données
+│     │  ├─spider/
+│     │  │  ├─Spider.java - Classe parent de tous les "spider" classes
+│     │  │  ├─Analyser.java - Retirer l'information dans les descriptions de poste
+│     │  │  ├─EdfSpider.java - Araignée du Web du site d'EDF
+│     │  │  ├─RteSpider.java - Araignée du Web du site d'RTE
+│     │  │  └─taleo/
+│     │  │     ├─TaleoSpider.java Classe parent de tous les "spider" classes qui s'appliquent sur le site de "taleo"
+│     │  │     ├─GdfsuezSpider.java - Araignée du Web du site de Gdf suez
+│     │  │     ├─RenaultSpider.java - Araignée du Web du site de Renault
+│     │  │     └─AlstomSpider.java  - Araignée du Web du site d'Alstom
+│     │  └─web/
+│     │     ├─SysContextListener.java - Lancer l'araignée du Web périodiquement et automatiquement
+│     │     └─Result.java - Java servlet qui traite les requêtes HTTP
+│     ├─resources/
+│     └─webapp/
+│         ├─css/
+│         │  └─bootstrap.min.css
+│         ├─img/
+│         │  └─Stage.png
+│         ├─js/
+│         │  ├─jquery.js
+│         │  └─bootstrap.min.js
+│         ├─WEB-INF/
+│         │  ├─lib/ - lib pour JSP
+│         │  │  ├─standard.jar
+│         │  │  └─jstl.jar
+│         │  ├─tld/ - lib pour JSP
+│         │  │  └─c.tld
+│         │  └─web.xml - Configuration de Tomcat
+│         ├─index.html - Page d'accueil
+│         └─result.jsp - Page affichagant les résultat
+└─pom.xml - fiche de configuration pour le deploiement sur OpenShift
